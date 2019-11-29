@@ -1,3 +1,5 @@
+NULL
+
 #' V-Dem data
 #'
 #' Loads the most recent version of the V-Dem data set (v9).
