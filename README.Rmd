@@ -29,5 +29,5 @@ This package contains the most recent V-Dem dataset (v9) and provides some addit
 # Install the development version from GitHub (since this package is still an ongoing project, keep checking for updates, new functions, etc. here!)
 devtools::install_github("vdeminstitute/vdemdata")
 ```
-
+output: md_document
 

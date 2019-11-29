@@ -1,11 +1,3 @@
----
-title: "vdemdata"
-output: html_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 A package to load, explore and work with the most recent (v9) V-Dem (Varieties of Democracy) dataset.
 
@@ -29,5 +21,5 @@ This package contains the most recent V-Dem dataset (v9) and provides some addit
 # Install the development version from GitHub (since this package is still an ongoing project, keep checking for updates, new functions, etc. here!)
 devtools::install_github("vdeminstitute/vdemdata")
 ```
-output: md_document
+
 
