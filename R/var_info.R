@@ -9,17 +9,18 @@
 #' e.g. "v2x_polyarchy" for the electoral democracy index.
 #' Note: use quotation marks vor "var_tag".
 #'
+#'
 #' @return A list of information on the desired variable.
 #'
-#' @import tidyverse
+#' @import dplyr
 #' @export
 #'
 #' @examples
 #' # Get information on the variable "v2x_polyarchy" (the electoral democracy index)
 #' var_info("v2x_polyarchy")
 var_info <- function(var_tag){
-  codebook %>%
-    filter(tag == var_tag) %>%
+  vdemdata::codebook %>%
+  dplyr::filter(vdemdata::codebook$tag == var_tag) %>%
     as.list()
 }
 
