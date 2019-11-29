@@ -20,7 +20,7 @@ This package contains the most recent V-Dem dataset (v9) and provides some addit
 ```
 # Install the development version of the vdemdata package 
 # (since this package is still an ongoing project, 
-# keep checking for updates, new functions, etc. here!)
+# keep checking for updates, new functions, etc.!)
 
 # First, you need to have the devtools package installed
 install.packages("devtools")
