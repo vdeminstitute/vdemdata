@@ -18,7 +18,13 @@ This package contains the most recent V-Dem dataset (v9) and provides some addit
 ## Installation
 
 ```
-# Install the development version from GitHub (since this package is still an ongoing project, keep checking for updates, new functions, etc. here!)
+# Install the development version of the vdemdata package 
+# (since this package is still an ongoing project, 
+# keep checking for updates, new functions, etc. here!)
+
+# First, you need to have the devtools package installed
+install.packages("devtools")
+# now, install the vdemdata package directly from GitHub
 devtools::install_github("vdeminstitute/vdemdata")
 ```
 
