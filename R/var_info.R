@@ -20,7 +20,7 @@
 #' var_info("v2x_polyarchy")
 var_info <- function(var_tag){
   vdemdata::codebook %>%
-  dplyr::filter(vdemdata::codebook$tag == var_tag) %>%
+  dplyr::filter(vdemdata::codebook$tag %in% var_tag) %>%
     as.list()
 }
 
