@@ -20,8 +20,40 @@
 #' var_info("v2x_polyarchy")
 var_info <- function(var_tag){
   vdemdata::codebook %>%
-  dplyr::filter(vdemdata::codebook$tag %in% var_tag) %>%
+  dplyr::filter(tag %in% var_tag) %>%
     as.list()
 }
 
+#' Search variable information by one or several keywords
+#'
+#' \code{find_var} returns a data.frame with the Codebook
+#' information on the indicators. The keywords are searched
+#' in the names of variables.
+#' 
+#' @param keywords A character vector of length one with one or 
+#' several keywords separated by comma to search in 
+#' the name of the variable. You can also pass regex
+#' notation (see \code{examples(find_var)}).
+#' 
+#' @import dplyr
+#' 
+#' @examples
+#' # Don't run
+#' # df <- find_var("Democracy, ^elect")
+#' # View(df)
+#' 
+#' @export
+find_var <- function(keywords) {
 
+	pattern <- strsplit(keywords, ",") %>%
+		unlist() %>%
+		tolower() %>%
+		gsub("^ ", "", x = .) %>%
+		paste0(collapse = "|")
+
+	df <- vdemdata::codebook %>%
+		dplyr::filter(grepl(pattern, tolower(name))) %>%
+		dplyr::arrange(tag)
+
+	return(df)
+}
