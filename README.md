@@ -14,6 +14,7 @@ This package contains the most recent V-Dem dataset (v9) and provides some addit
 
 * `vdem`: Load the dataset
 * `var_info`: Print to the console basic information on a specific variable as given in the codebook
+* `find_var`: Search variables via keywords
 
 ## Installation
 
