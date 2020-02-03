@@ -5,7 +5,10 @@ Version: 0.1.0
 Authors@R: person("Seraphine", "Maerz", email = "seraphine.maerz@v-dem.net", role = c("aut", "cre"))
 Maintainer: The package maintainer <seraphine.maerz@v-dem.net>
 Description: This package contains the most recent full vdem data set (v9) plus external variables (see here: https://www.v-dem.net/en/data/data-version-9/) and offers some additional functions to work with vdem data.
-Imports: dplyr
+Imports: 
+  dplyr, 
+  magrittr, 
+  Rcpp
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
