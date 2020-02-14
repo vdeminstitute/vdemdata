@@ -23,7 +23,7 @@ This package contains the most recent V-Dem dataset (v9) and provides some addit
 
 #### Data on Episodes of Autocratization and Democratization: ####
 * `get_aut`: Identify episodes of autocratization in the most recent vdem data set. Autocratization is defined as any movement towards autocracy which starts within democracies or autocracies [(cf. Lührmann and Lindberg, Democratization, 2019)](https://www.tandfonline.com/doi/full/10.1080/13510347.2019.1582029)
-* `get_lib`: Identify episodes of democratization in the most recent vdem data set. Democratization is defined as any movement towards democracy which starts in autocracies or democracies [(cf. Wilson et al., 2020)](https://www.v-dem.net/en/news-publications/working-papers/)
+* `get_dem`: Identify episodes of democratization in the most recent vdem data set. Democratization is defined as any movement towards democracy which starts in autocracies or democracies [(cf. Wilson et al., 2020)](https://www.v-dem.net/en/news-publications/working-papers/)
 
 
 ## Installation
