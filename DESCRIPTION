@@ -3,17 +3,20 @@ Type: Package
 Title: Provides most recent V-Dem data (v9) and some additional features
 Version: 0.1.0
 Authors@R: c(person("Seraphine", "Maerz", email = "seraphine.maerz@v-dem.net", role = c("aut", "cre")),
-	     person("Sebastian", "Hellmeier", email = "sebastian.hellmeier@v-dem.net", role = c("aut")),
-	     person("Nina", "Ilchenko", email = "nina.ilchenko@v-dem.net", role = c("aut")))
+              person("Amanda", "Edgell", email = "amanda.edgell@v-dem.net", role = c("aut")))
+	            person("Sebastian", "Hellmeier", email = "sebastian.hellmeier@v-dem.net", role = c("ctb")),
+	            person("Nina", "Ilchenko", email = "nina.ilchenko@v-dem.net", role = c("ctb")))
 Maintainer: The package maintainer <seraphine.maerz@v-dem.net>
 Description: This package contains the most recent full V-Dem data set (v9) plus external variables (see here: https://www.v-dem.net/en/data/data-version-9/) and offers some additional functions to work with vdem data.
 Imports: 
   dplyr, 
   magrittr, 
-  Rcpp,
   tidyr,
   ggplot2,
-  stringr
+  stringr,
+  hablar
+  Rcpp,
+LinkingTo: Rcpp
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
