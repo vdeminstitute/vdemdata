@@ -14,8 +14,8 @@ Imports:
   tidyr,
   ggplot2,
   stringr,
-  hablar
-  Rcpp,
+  hablar,
+  Rcpp
 LinkingTo: Rcpp
 License: GPL-3
 Encoding: UTF-8
