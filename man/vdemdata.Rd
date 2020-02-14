@@ -7,6 +7,9 @@
 \description{
 A package to load, expore and work with the most recent V-Dem (Varieties of Democracy) dataset.
 }
+\references{
+\url{https://github.com/vdeminstitute/vdemdata} and \url{https://www.v-dem.net/en/}
+}
 \author{
-Seraphine Maerz <seraphine.maerz@gu.se>
+Seraphine F. Maerz (package creater and maintainer, seraphine.maerz@v-dem.net), Amanda B. Edgell, Sebastian Hellmeier, Nina Ilchenko
 }

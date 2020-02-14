@@ -7,12 +7,10 @@ export(plot_indicator)
 export(var_info)
 import(Rcpp)
 import(dplyr)
+import(ggplot2)
 import(hablar)
 import(magrittr)
-import(ggplot2)
 import(stringr)
 import(tidyr)
 importFrom(Rcpp,evalCpp)
 useDynLib(vdemdata)
-
-
