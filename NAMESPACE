@@ -3,10 +3,16 @@
 export(find_var)
 export(get_aut)
 export(get_dem)
+export(plot_indicator)
 export(var_info)
 import(Rcpp)
 import(dplyr)
 import(hablar)
 import(magrittr)
+import(ggplot2)
+import(stringr)
+import(tidyr)
 importFrom(Rcpp,evalCpp)
 useDynLib(vdemdata)
+
+
