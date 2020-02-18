@@ -6,6 +6,7 @@
 #'
 #' @return A data frame showing the country/year of overlaps between democratization and autocratization episodes.
 #'
+#' @import dpylr
 #' @export
 #'
 #' @examples
