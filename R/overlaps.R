@@ -44,9 +44,8 @@ find_overlap <-function(
 #' fix_overlap(overlap, merged)
 #'
 fix_overlap <- if(interactive())function(
-  overlap = vdemdata::find_overlap(),
-  merged = vdemdata::get_dem() %>%
-    left_join(vdemdata::get_aut()))
+  overlap,
+  merged)
 {
   method <- menu(c("Manually (case-by-case)", "Assign all the same way"), title= "How do you want to fix the overlap?")
   if (method == 2){

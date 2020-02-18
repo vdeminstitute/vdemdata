@@ -4,10 +4,7 @@
 \alias{fix_overlap}
 \title{An interactive function to fix the overlap between episodes of democratization and autocratization.}
 \usage{
-fix_overlap(
-  overlap = vdemdata::find_overlap(),
-  merged = vdemdata::get_dem() \%>\% left_join(vdemdata::get_aut())
-)
+fix_overlap(overlap, merged)
 }
 \arguments{
 \item{overlap}{The outcome of the find_overlap() function. By default with standard parameters.}
