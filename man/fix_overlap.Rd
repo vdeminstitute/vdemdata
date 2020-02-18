@@ -5,7 +5,7 @@
 \title{An interactive function to fix the overlap between episodes of democratization and autocratization.}
 \usage{
 fix_overlap(
-  overlap = find_overlap(),
+  overlap = vdemdata::find_overlap(),
   dem_ep = vdemdata::get_dem(),
   aut_ep = vdemdata::get_aut(),
   merged = dem_ep \%>\% left_join(aut_ep)

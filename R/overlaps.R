@@ -45,7 +45,7 @@ find_overlap <-function(
 #' fix_overlap(overlap, merged)
 #'
 fix_overlap <- if(interactive())function(
-  overlap = find_overlap(),
+  overlap = vdemdata::find_overlap(),
   dem_ep = vdemdata::get_dem(),
   aut_ep = vdemdata::get_aut(),
   merged = dem_ep %>%
