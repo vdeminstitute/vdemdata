@@ -5,12 +5,13 @@
 \title{Get episodes of autocratization (democratic backsliding, closing)}
 \usage{
 get_aut(
-  data = vdemdata::fill_vdem,
+  data = vdemdata::vdem,
   start_incl = -0.01,
   cum_incl = -0.1,
   year_turn = 0.02,
   cum_turn = 0.1,
-  tolerance = 10
+  tolerance = 10,
+  output = "df"
 )
 }
 \arguments{
@@ -31,6 +32,9 @@ By default a cumulative change of +0.1 on the EDI (Vdem's Electoral Democcracy I
 
 \item{tolerance}{A threshold to specify the number of "stasis" observations (\emph{i.e.}, observations neither increasing
 or decreasing significantly) permitted before stopping a sequence. By default 10 years.}
+
+\item{output}{The default output is a data frame. Alternatively, output = "summary" prints the overall observed numbers of each episode types to the console,
+output = "table" compiles a short table showing each country with start and end year of each episode and episode ID.}
 }
 \value{
 A data frame specifying episodes of autocratization in the most recent Vdem data set: democratic backsliding for those episodes starting in democracy ("aut_ep_dem") and
@@ -40,11 +44,18 @@ closing for those episodes starting in autocracy ("aut_ep_aut"), further disting
 Helps to identify episodes of autocratization in the most recent vdem data set.
 \emph{Autocratization} is defined as any movement towards autocracy which starts within democracies or autocracies (cf. Lührmann and Lindberg, Democratization, 2019).
 \emph{Democratic backsliding} is defined as a subtype of autocratization and specifically focuses on any movement towards autocracy
-which starts in democracies. \emph{Closing} is also a subtype of autocratization and
+which starts in democracies. \emph{Autocratic reinforcement} is also a subtype of autocratization and
 concerns all those which are already autocratic and further decline (cf. Boese et al., forthcoming in Democratization, 2020).
 }
 \examples{
 Get the episodes with standard parameters:
 aut_episodes <- get_aut()
+
+Get a short table with country, start and end year of episodes, episode ID only
+aut_table <- get_aut(output="table")
+
+Get the overall numbers of episode types printed to the console
+aut_summary <- get_aut(output="summary")
+
 
 }
