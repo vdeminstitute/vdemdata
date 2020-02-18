@@ -36,7 +36,8 @@ find_overlap <-function(
 #'
 #' @return Recoding of overlapping episodes based on the interactive function.
 #'
-#' @export
+#'@import dplyr
+#'@export
 #'
 #' @examples
 #' Fix the overlap between democratization and autocratization episodes
