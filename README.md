@@ -18,15 +18,14 @@ This package contains the most recent V-Dem dataset (v9) and provides some addit
 * `var_info`: Print to the console basic information on a specific variable as given in the codebook
 * `find_var`: Search variables via keywords
 
-#### Data visualization
-* `plot_indicator`: Plot V-Dem indicators for exploratory data analysis
-
 #### Data on Episodes of Autocratization and Democratization: ####
 * `get_aut`: Identify episodes of autocratization in the most recent vdem data set. Autocratization is defined as any movement towards autocracy which starts within democracies or autocracies [(cf. Lührmann and Lindberg, Democratization, 2019)](https://www.tandfonline.com/doi/full/10.1080/13510347.2019.1582029)
 * `get_dem`: Identify episodes of democratization in the most recent vdem data set. Democratization is defined as any movement towards democracy which starts in autocracies or democracies [(cf. Wilson et al., 2020)](https://www.v-dem.net/en/news-publications/working-papers/)
+* `find_overlap`: Find potential overlaps between episodes of democratization and autocratization which may occur depending on how the thresholds are set.
+* `fix_overlap`: Interactive function to fix potential overlaps between episodes of democratization and autocratization which may occur depending on how the thresholds are set.
 
+## Installation ##
 
-## Installation
 ```
 # Install the development version of the vdemdata package 
 # (since this package is still an ongoing project, 

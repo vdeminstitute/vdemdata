@@ -208,7 +208,7 @@ get_dem <- function(data = vdemdata::vdem,
                   censored = ifelse(dem_ep_dem== 1 & (codingend - last_ch_year < tolerance | (gapstart1 - last_ch_year > 0 & gapstart1 - last_ch_year < tolerance) | # here, we need to make sure that no episode is not also coded as censored
                                                         (gapstart2 - last_ch_year > 0 & gapstart2 - last_ch_year < tolerance) | (gapstart3 - last_ch_year > 0 & gapstart3 - last_ch_year < tolerance)), 1, censored)) %>%
     # clean out all columns we don't need
-    dplyr::select(country_name, country_id, country_text_id, year, dem_ep = manifest, dem_ep_id, dem_ep_start_year, dem_ep_end_year, censored,
+    dplyr::select(country_name, country_id, country_text_id, year, v2x_regime, v2x_polyarchy, dem_ep = manifest, dem_ep_id, dem_ep_start_year, dem_ep_end_year, censored,
                   pre_ep_year, dem_ep_aut, dem_ep_dem, success, founding_elec, fail_preem, fail_rev, fail_stab) %>%
 
 

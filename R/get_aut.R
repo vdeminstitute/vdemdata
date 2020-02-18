@@ -150,7 +150,7 @@ get_aut <- function(data = vdemdata::vdem,
                   averted = ifelse(aut_ep_dem == 1 & breakdown == 0 & censored == 0, 1, 0)) %>%
 
     # clean out all columns we don't need
-    dplyr::select(country_name, country_id, country_text_id, year, aut_ep = manifest, aut_ep_id, aut_ep_start_year, aut_ep_end_year, censored,
+    dplyr::select(country_name, country_id, country_text_id, year, v2x_regime, v2x_polyarchy, aut_ep = manifest, aut_ep_id, aut_ep_start_year, aut_ep_end_year, censored,
                   pre_ep_year, aut_ep_aut, aut_ep_dem, breakdown, averted) %>%
 
 
