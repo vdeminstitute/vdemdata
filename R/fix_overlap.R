@@ -10,17 +10,19 @@
 #' @export
 #'
 #' @examples
-#' Fix the overlap between democratization and autocratization episodes
+#' #Don't run
+#' #Fix the overlap between democratization and autocratization episodes
 #'
-#' fix_overlap(dem_ep, aut_ep)
+#' #fix_overlap(dem_ep, aut_ep)
 #'
-fix_overlap <- if(interactive())function(
+fix_overlap <- function(
   dem_ep = vdemdata::get_dem(),
   aut_ep = vdemdata::get_aut())
 {
-  overlap = vdemdata::find_overlap(dem_ep, aut_ep)
+  if(interactive())function(
+  overlap = vdemdata::find_overlap(dem_ep, aut_ep),
   merged = dem_ep %>%
-    left_join(aut_ep)
+    left_join(aut_ep)){
 
   method <- menu(c("Manually (case-by-case)", "Assign all the same way"), title= "How do you want to fix the overlap?")
   if (method == 2){
@@ -166,5 +168,5 @@ fix_overlap <- if(interactive())function(
     }
   }
   return(merged)
-
+}
 }

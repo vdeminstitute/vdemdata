@@ -18,8 +18,9 @@ Recoding of overlapping episodes based on the interactive function.
 An interactive function to fix the overlap between episodes of democratization and autocratization.
 }
 \examples{
-Fix the overlap between democratization and autocratization episodes
+#Don't run
+#Fix the overlap between democratization and autocratization episodes
 
-fix_overlap(dem_ep, aut_ep)
+#fix_overlap(dem_ep, aut_ep)
 
 }

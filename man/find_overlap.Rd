@@ -18,11 +18,12 @@ A data frame showing the country/year of overlaps between democratization and au
 Find the overlap between episodes of democratization and autocratization.
 }
 \examples{
-Find the overlap between democratization and autocratization episodes
+#Don't run
+#Find the overlap between democratization and autocratization episodes
 
-democratization_episodes <- get_dem()
-autocratization_episodes <- get_aut()
+#democratization_episodes <- get_dem()
+#autocratization_episodes <- get_aut()
 
-overlap <- find_overlap(democratization_episodes, autocratization_episodes)
+#overlap <- find_overlap(democratization_episodes, autocratization_episodes)
 
 }

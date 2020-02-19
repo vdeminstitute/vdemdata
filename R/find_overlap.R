@@ -10,12 +10,13 @@
 #' @export
 #'
 #' @examples
-#' Find the overlap between democratization and autocratization episodes
+#' #Don't run
+#' #Find the overlap between democratization and autocratization episodes
 #'
-#' democratization_episodes <- get_dem()
-#' autocratization_episodes <- get_aut()
+#' #democratization_episodes <- get_dem()
+#' #autocratization_episodes <- get_aut()
 #'
-#' overlap <- find_overlap(democratization_episodes, autocratization_episodes)
+#' #overlap <- find_overlap(democratization_episodes, autocratization_episodes)
 #'
 find_overlap <-function(
   dem_ep = vdemdata::get_dem(),
