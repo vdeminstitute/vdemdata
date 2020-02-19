@@ -10,7 +10,7 @@ We are a team of over 50 social scientists on six continents. We work with more 
 
 ## The vdemdata R package ##
 
-This package contains the most recent V-Dem dataset (v9) and provides some additional functions.
+This package contains the most recent V-Dem dataset and provides some additional functions.
 
 #### Basics: ####
 * `vdem`: Load the dataset
