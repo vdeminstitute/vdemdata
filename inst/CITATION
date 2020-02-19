@@ -3,7 +3,7 @@ citHeader("To cite the vdemdata R package in publications use:")
 citEntry(
   entry    = "misc",
   title    = "{Vdemdata - an R package to load, explore and work with the most recent V-Dem (Varieties of Democracy) dataset}",
-  author   = author = personList(as.person("Seraphine Maerz"),
+  author   = personList(as.person("Seraphine Maerz"),
          as.person("Amanda Edgell"),
          as.person("Laura Maxwell"),
          as.person("Sebastian Hellmeier"),
@@ -11,7 +11,5 @@ citEntry(
   institution = "Varieties of Democracy (V-Dem) Project",
   year     = 2020,
   url      = "https://www.v-dem.net/en/",
-  textVersion = paste(
-
-  )
+  textVersion = "Seraphine Maerz, Amanda Edgell, Laura Maxwell, Sebastian Hellmeier, Nina Ilchenko. 'Vdemdata - an R package to load, explore and work with the most recent V-Dem (Varieties of Democracy) dataset'. Varieties of Democracy (V-Dem) Project. 2020. https://www.v-dem.net/en/"
 )
