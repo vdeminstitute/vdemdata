@@ -20,10 +20,11 @@ fix_overlap <- function(
   aut_ep = vdemdata::get_aut())
 {
   if(interactive())function(
-  overlap = vdemdata::find_overlap(dem_ep, aut_ep),
-  merged = dem_ep %>%
-    left_join(aut_ep)){
-
+  overlap,
+  merged){
+    overlap = vdemdata::find_overlap(dem_ep, aut_ep)
+    merged = dem_ep %>%
+      left_join(aut_ep)
   method <- menu(c("Manually (case-by-case)", "Assign all the same way"), title= "How do you want to fix the overlap?")
   if (method == 2){
     which_assign <- menu(c("As autocratization episode years", "As democratization episode years", "To both","To neither"), title="How would you like to assign the overlappling country-years?")
