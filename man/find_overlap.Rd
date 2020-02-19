@@ -4,11 +4,7 @@
 \alias{find_overlap}
 \title{Find the overlap between episodes of democratization and autocratization.}
 \usage{
-find_overlap(
-  dem_ep = vdemdata::get_dem(),
-  aut_ep = vdemdata::get_aut(),
-  merged = dem_ep \%>\% left_join(aut_ep)
-)
+find_overlap(dem_ep = vdemdata::get_dem(), aut_ep = vdemdata::get_aut())
 }
 \arguments{
 \item{dem_ep}{The outcome of get_dem(), democratization episodes. By default with standard parameters.}

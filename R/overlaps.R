@@ -19,10 +19,10 @@
 #'
 find_overlap <-function(
   dem_ep = vdemdata::get_dem(),
-  aut_ep = vdemdata::get_aut(),
-  merged = dem_ep %>%
-    left_join(aut_ep))
+  aut_ep = vdemdata::get_aut())
   {
+  merged = dem_ep %>%
+    left_join(aut_ep)
   aut <- merged %>% filter(aut_ep == 1) %>% dplyr::select(country_name, year)
   dem <- merged  %>% filter(dem_ep == 1) %>% dplyr::select(country_name, year)
   overlap <- rbind(aut,dem)[duplicated(rbind(aut,dem)),]
@@ -30,9 +30,9 @@ find_overlap <-function(
 }
 #' An interactive function to fix the overlap between episodes of democratization and autocratization.
 #'
-#' @param overlap The outcome of the find_overlap() function. By default with standard parameters.
+#' @param dem_ep The outcome of get_dem(), democratization episodes. By default with standard parameters.
 #'
-#' @param merged The outcome of get_aut(), autocratization episodes. By default with standard parameters.
+#' @param aut_ep The outcome of get_aut(), autocratization episodes. By default with standard parameters.
 #'
 #' @return Recoding of overlapping episodes based on the interactive function.
 #'
@@ -42,15 +42,16 @@ find_overlap <-function(
 #' @examples
 #' Fix the overlap between democratization and autocratization episodes
 #'
-#' fix_overlap(overlap, merged)
+#' fix_overlap(dem_ep, aut_ep)
 #'
 fix_overlap <- if(interactive())function(
-  overlap = vdemdata::find_overlap(),
   dem_ep = vdemdata::get_dem(),
-  aut_ep = vdemdata::get_aut(),
-  merged = dem_ep %>%
-    left_join(aut_ep))
+  aut_ep = vdemdata::get_aut())
 {
+  overlap = vdemdata::find_overlap(dem_ep, aut_ep)
+  merged = dem_ep %>%
+    left_join(aut_ep)
+
   method <- menu(c("Manually (case-by-case)", "Assign all the same way"), title= "How do you want to fix the overlap?")
   if (method == 2){
     which_assign <- menu(c("As autocratization episode years", "As democratization episode years", "To both","To neither"), title="How would you like to assign the overlappling country-years?")

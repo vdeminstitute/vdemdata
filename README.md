@@ -1,5 +1,5 @@
 
-A package to load, explore and work with the most recent (v9) V-Dem (Varieties of Democracy) dataset.
+An R package to load, explore and work with the most recent V-Dem (Varieties of Democracy) dataset.
 
 ## V-Dem: Global Standards, Local Knowledge ##
 
