@@ -1,1 +1,1 @@
-CXX=clang++
+CXX_STD = CXX11
