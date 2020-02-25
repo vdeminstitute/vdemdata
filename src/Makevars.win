@@ -1,1 +1,1 @@
-CXX = g++ 
+CXX := 			$(shell $(R_HOME)/bin/R $(R_ARCH) CMD config CXX)
