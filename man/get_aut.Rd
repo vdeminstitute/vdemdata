@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_aut.R
 \name{get_aut}
 \alias{get_aut}
-\title{Get episodes of autocratization (democratic backsliding, closing)}
+\title{Get episodes of autocratization (democratic regression, autocratic regression)}
 \usage{
 get_aut(
   data = vdemdata::vdem,
@@ -10,7 +10,7 @@ get_aut(
   cum_incl = -0.1,
   year_turn = 0.02,
   cum_turn = 0.1,
-  tolerance = 10,
+  tolerance = 5,
   output = "df"
 )
 }
@@ -31,20 +31,20 @@ By default a yearly change of +0.02 on the EDI (Vdem's Electoral Democracy Index
 By default a cumulative change of +0.1 on the EDI (Vdem's Electoral Democcracy Index) between the start and end of a sequence.}
 
 \item{tolerance}{A threshold to specify the number of "stasis" observations (\emph{i.e.}, observations neither increasing
-or decreasing significantly) permitted before stopping a sequence. By default 10 years.}
+or decreasing significantly) permitted before stopping a sequence. By default 5 years.}
 
 \item{output}{The default output is a data frame. Alternatively, output = "summary" prints the overall observed numbers of each episode types to the console,
 output = "table" compiles a short table showing each country with start and end year of each episode and episode ID.}
 }
 \value{
-A data frame specifying episodes of autocratization in the most recent Vdem data set: democratic backsliding for those episodes starting in democracy ("aut_ep_dem") and
-closing for those episodes starting in autocracy ("aut_ep_aut"), further distinguishing subtypes of democratic backsliding (1) breakdown ("breakdown"), and (2) averted democratic backsliding ("averted").
+A data frame specifying episodes of autocratization in the most recent Vdem data set: democratic regression for those episodes starting in democracy ("aut_ep_dem") and
+autocratic regression for those episodes starting in autocracy ("aut_ep_aut"), further distinguishing subtypes of democratic regression into (1) breakdown ("breakdown"), and (2) averted democratic regression ("averted").
 }
 \description{
 Helps to identify episodes of autocratization in the most recent vdem data set.
 \emph{Autocratization} is defined as any movement towards autocracy which starts within democracies or autocracies (cf. Lührmann and Lindberg, Democratization, 2019).
-\emph{Democratic backsliding} is defined as a subtype of autocratization and specifically focuses on any movement towards autocracy
-which starts in democracies. \emph{Autocratic reinforcement} is also a subtype of autocratization and
+\emph{Democratic regression} is defined as a subtype of autocratization and specifically focuses on any movement towards autocracy
+which starts in democracies. \emph{Autocratic regression} is also a subtype of autocratization and
 concerns all those which are already autocratic and further decline (cf. Boese et al., forthcoming in Democratization, 2020).
 }
 \examples{

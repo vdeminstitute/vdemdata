@@ -58,8 +58,8 @@ get_dem <- function(data = vdemdata::vdem,
                              {
   ### data cleaning and preparation ###
   # selecting the variables we need to construct the episodes dataframe
-  
-  
+
+
   full.df <- data %>%
     dplyr::select(country_name, country_id, country_text_id, year,
                   v2x_polyarchy, codingend, matches("v2x_polyarchy"),
@@ -71,7 +71,7 @@ get_dem <- function(data = vdemdata::vdem,
                   gapstart3 = ifelse(is.na(gapstart3), 9, gapstart3)) %>%
     dplyr::arrange(country_text_id, year) %>%
     dplyr::group_by(country_text_id) %>%
-    
+
     # detect and save potential episodes with the help of the c++ function find_seqs
     dplyr::mutate(episode_id = find_seqs_dem(v2x_polyarchy, v2x_regime,
                                              start_incl,
@@ -96,14 +96,14 @@ get_dem <- function(data = vdemdata::vdem,
     dplyr::arrange(country_name, year)%>%
     dplyr::filter(dem_ep == 1) %>% # lets filter out all non-manifest dem_ep
     as.data.frame %>%
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
     ### liberalization ###
-    
+
     # assess the type of episode: democratic transition, failure
     group_by(country_id) %>%
     dplyr::mutate(dem_reg = ifelse(v2x_regime > 1,1,0), # this column tells us whether a regime is democratic or not (country/year)
@@ -112,7 +112,7 @@ get_dem <- function(data = vdemdata::vdem,
     group_by(dem_ep_id) %>%
     dplyr::mutate(founding_elec = min(hablar::s(ifelse(v2x_regime > 1 & dem_ep_aut ==1 & v2elasmoff_ord > 1 & (v2eltype_0 == 1 | v2eltype_4 ==1 | v2eltype_6 ==1) & dplyr::lag(v2x_regime > 1, n=1), year, NA))), # let's find the year of the first election after transition (=founding election)
                   last_trans = min(hablar::s(founding_elec-(ifelse(reg_trans == 1 & pre_ep_year != 1 & year < founding_elec, founding_elec - year, NA)))), # let's find the last transition before the founding election
-                  last_ch_year = max(ifelse(v2x_polyarchy-dplyr::lag(v2x_polyarchy, n=1)>=start_incl, year, NA), na.rm=T), 
+                  last_ch_year = max(ifelse(v2x_polyarchy-dplyr::lag(v2x_polyarchy, n=1)>=start_incl, year, NA), na.rm=T),
                   censored = ifelse((codingend - dem_ep_end_year ==0 | (gapstart1 - dem_ep_end_year ==0) | # here, we need to make sure that  is not also coded as censored
                                        (gapstart2 - dem_ep_end_year == 0) | (gapstart3 - dem_ep_end_year == 0)), 1, 0),
                   #last_ch_year = ifelse(manifest == 1, max(last_ch_year, na.rm = T), NA), # the last year of the change that meets the start_incl threshold
@@ -124,11 +124,11 @@ get_dem <- function(data = vdemdata::vdem,
                   dem_ep_aut = ifelse(year>founding_elec & success ==1 & dem_ep ==1, 0, dem_ep_aut),
                   dem_ep_dem = ifelse(year>founding_elec & success == 1 & dem_ep == 1, 1, dem_ep_dem))%>%
     dplyr::filter(dem_ep==1)  %>%
-    
-    
-    
-    
-    
+
+
+
+
+
     # extract the pre-empted episodes
     # meaning there was a transition to democracy but no founding election
     group_by(dem_ep_id) %>%
@@ -144,53 +144,53 @@ get_dem <- function(data = vdemdata::vdem,
            #manifest = ifelse(year>dem_ep_end_year & fail_preem ==1, 0, manifest),
            fail_preem = ifelse(!is.na(dem_ep_id), ifelse(year>dem_ep_end_year, 0, fail_preem), 0),
            dem_ep_id = ifelse(year>dem_ep_end_year, NA, dem_ep_id)) %>%
-    
+
     dplyr::filter(dem_ep==1)  %>%
-    
+
     # extract the failed reverted
     # for this, the following conditions need to be meet: first, a country moves back to closed autocracy
     group_by(country_id) %>%
-    dplyr::mutate(back_closed = ifelse(dplyr::lead(v2x_regime, n=1) == 0 & v2x_regime > 0 & year == dem_ep_end_year, 1, 0)) 
-  
+    dplyr::mutate(back_closed = ifelse(dplyr::lead(v2x_regime, n=1) == 0 & v2x_regime > 0 & year == dem_ep_end_year, 1, 0))
+
   # OR second, check if there was a cumulative drop "drop" in v2x_polyarchy after the final epiosde year for the length of tolerance which is bigger than cum_turn
   # for this, we need to create "cum_drop" with the following:
   #last_ch_year = ifelse(v2x_polyarchy-dplyr::lag(v2x_polyarchy, n=1)>=start_incl , year, NA)) %>%  # let's locate the last year of a positive change before encountering either a drop or stasis
   #group_by(dem_ep_id) %>%
   #dplyr::mutate(last_ch_year = ifelse(manifest == 1, max(last_ch_year, na.rm = T), NA)) %>%
   # group_by(country_id)
-  
+
   # yearly drop
   year_drop <- list()
   for (i in 1:tolerance) {
     year_drop[[i]] <- ifelse(full.df$year == full.df$last_ch_year & dplyr::lead(full.df$country_id, n=i)==full.df$country_id, dplyr::lead(full.df$v2x_polyarchy, n=i-1)-dplyr::lead(full.df$v2x_polyarchy, n=i), NA)
   }
-  
+
   df1 <- do.call(cbind, lapply(year_drop, data.frame, stringsAsFactors=FALSE))
   names <- paste0('year', seq(1:tolerance))
   colnames(df1) <- names
   year_drop <- df1 %>%
     dplyr::mutate(year_drop = ifelse(apply(df1, 1, FUN = min) <= year_turn, 1,NA))  %>%
     dplyr::select(year_drop)
-  
+
   # cum drop
   cum_drop <- list()
   for (i in 1:tolerance) {
     cum_drop[[i]] <- ifelse(full.df$year == full.df$last_ch_year & dplyr::lead(full.df$country_id, n=i)==full.df$country_id, dplyr::lead(full.df$v2x_polyarchy, n=i)-full.df$v2x_polyarchy, NA)
   }
-  
+
   df <- do.call(cbind, lapply(cum_drop, data.frame, stringsAsFactors=FALSE))
   names <- paste0('cum', seq(1:tolerance))
   colnames(df) <- names
   cum_drop <- df %>%
     dplyr::mutate(cum_drop = ifelse(apply(df, 1, FUN = min) <= cum_turn, 1,NA)) %>%
     dplyr::select(cum_drop)
-  
+
   # merge this new column "cum_drop" to our full.df
   full.df <- full.df %>%
     tibble::rownames_to_column('newid') %>%
     left_join(tibble::rownames_to_column(year_drop, 'newid'), by = 'newid') %>%
     left_join(tibble::rownames_to_column(cum_drop, 'newid'), by = 'newid') %>%
-    
+
     # finally, we have all conditions to check for failed liberalization (the two created above combined by logical OR):
     group_by(dem_ep_id) %>%
     # dplyr::mutate(fail_rev = ifelse(success == 0 & fail_preem == 0 & dem_ep_aut == 1 & (max(hablar::s(back_closed == 1)) | max(hablar::s(cum_drop == 1)) | max(hablar::s(year_drop == 1)) | max(hablar::s(v2x_regime)) == 0),1,0))
@@ -199,11 +199,11 @@ get_dem <- function(data = vdemdata::vdem,
                   censored_fail = ifelse(dem_ep_aut == 1 & success == 0 & fail_preem == 0 & fail_rev == 0 & (codingend - last_ch_year < tolerance | (gapstart1 - last_ch_year > 0 & gapstart1 - last_ch_year < tolerance) | # here, we need to make sure that no episode is not also coded as censored
                                                                                                                (gapstart2 - last_ch_year > 0 & gapstart2 - last_ch_year < tolerance) | (gapstart3 - last_ch_year > 0 & gapstart3 - last_ch_year < tolerance)), 1, 0),
                   fail_rev = ifelse(success == 0 & fail_preem == 0 & dem_ep_aut == 1 & max(v2x_regime == 0) & censored_fail != 1, 1, fail_rev),
-                  
+
                   # extract the stabilized autocracy episodes
                   # if episode (dem_ep_aut), but not success, not preempted, not failed_lib, then it is stabilized autocracy (fail_stab)
                   fail_stab = ifelse(dem_ep_aut == 1 & success == 0 & fail_preem == 0 & fail_rev == 0 & censored_fail != 1, 1,0))%>%
-    
+
     # now we remove any remaining stasis years
     dplyr::ungroup() %>%
     dplyr::mutate(dem_ep_end_year = ifelse((fail_rev == 1 | fail_stab ==1 | dem_ep_dem == 1), last_ch_year, dem_ep_end_year),
@@ -215,14 +215,14 @@ get_dem <- function(data = vdemdata::vdem,
                   fail_stab = ifelse(!is.na(dem_ep_id) & year>dem_ep_end_year, 0, fail_stab),
                   dem_ep_dem = ifelse(!is.na(dem_ep_id) & year>dem_ep_end_year, 0, dem_ep_dem),
                   dem_ep_id = ifelse(year>dem_ep_end_year, NA, dem_ep_id),
-                  
+
                   # we check whether the episode is still ongoing (=censored), for autocratic adaptation episodes
                   sub_censored = ifelse(dem_ep_aut==1 & (censored_preem == 1 | censored_fail == 1), 1,0),
-                  
+
                   # now, we still need to check if democratic deepening episodes are censored
                   sub_censored = ifelse(dem_ep_dem== 1 & ((codingend - last_ch_year < tolerance) | (gapstart1 - last_ch_year > 0 & gapstart1 - last_ch_year < tolerance) | # here, we need to make sure that no episode is not also coded as censored
                                                             (gapstart2 - last_ch_year > 0 & gapstart2 - last_ch_year < tolerance) | (gapstart3 - last_ch_year > 0 & gapstart3 - last_ch_year < tolerance)), 1, sub_censored)) %>%
-    group_by(dem_ep_id) %>%             
+    group_by(dem_ep_id) %>%
     dplyr::mutate(sub_dem_ep_id = ifelse(dem_ep_dem == 1 & success == 0, dem_ep_id, NA),
                   sub_dem_ep_id = ifelse(dem_ep_dem==1 & success == 1, paste(country_text_id, founding_elec+1, dem_ep_end_year, sep = "_"), sub_dem_ep_id),
                   sub_dem_ep_id = ifelse(dem_ep_aut == 1 & success == 0, dem_ep_id, sub_dem_ep_id),
@@ -233,16 +233,16 @@ get_dem <- function(data = vdemdata::vdem,
     # clean out all columns we don't need
     dplyr::select(country_name, country_id, country_text_id, year, v2x_regime, v2x_polyarchy, dem_ep, dem_ep_id, sub_dem_ep_id, dem_ep_start_year, dem_ep_end_year, manifest, censored, sub_censored,
                   pre_ep_year, dem_ep_aut, dem_ep_dem, success, fail_preem, fail_rev, fail_stab, founding_elec, last_trans) %>%
-    
-    
+
+
     # clean up variables for episodes that are not manifest
     #dplyr::mutate(dem_ep_end_year = ifelse(dem_ep==0, NA, dem_ep_end_year),
     #dem_ep_start_year = ifelse(dem_ep==0, NA, dem_ep_start_year),
     #dem_ep_id = ifelse(dem_ep==0, NA, dem_ep_id),
     #pre_ep_year = ifelse(dem_ep==0, NA, pre_ep_year),
     #censored = ifelse(dem_ep==0, NA, censored),
-    
-    
+
+
     # get a new column showing the type of each episode
   dplyr::mutate(dem_ep_type = ifelse(dem_ep_dem==1,"democr_deep", "no_ep"),
                 dem_ep_type = ifelse(success==1,"success", dem_ep_type),
@@ -250,7 +250,7 @@ get_dem <- function(data = vdemdata::vdem,
                 dem_ep_type = ifelse(fail_rev == 1, "fail_rev", dem_ep_type),
                 dem_ep_type = ifelse(fail_stab ==1, "fail_stab", dem_ep_type),
                 dem_ep_type = ifelse(censored == 1, "censored", dem_ep_type))
-  
+
   # define output options
   if(output == "summary"){
     summary <- full.df %>%
@@ -261,7 +261,7 @@ get_dem <- function(data = vdemdata::vdem,
       distinct(dem_ep_type, count_ep, count_countries) %>%
       arrange(dem_ep_type)
     print(summary)}
-  
+
   if(output == "table"){
     table <- full.df %>%
       dplyr::filter(dem_ep_type !="no_ep") %>%
@@ -271,6 +271,6 @@ get_dem <- function(data = vdemdata::vdem,
     return(table)}
   {
     return(full.df)
-  
+  }
 }
   ### done ;-) ###

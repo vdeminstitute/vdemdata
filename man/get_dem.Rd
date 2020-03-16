@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_dem.R
 \name{get_dem}
 \alias{get_dem}
-\title{Get episodes of democratization (autocratic adaption, democratic deepening)}
+\title{Get episodes of democratization (liberalization, democratic deepening)}
 \usage{
 get_dem(
   data = vdemdata::vdem,
@@ -10,7 +10,7 @@ get_dem(
   cum_incl = 0.1,
   year_turn = -0.02,
   cum_turn = -0.1,
-  tolerance = 10,
+  tolerance = 5,
   output = "df"
 )
 }
@@ -31,20 +31,20 @@ By default a yearly change of -0.02 on the EDI (Vdem's Electoral Democracy Index
 By default a cumulative change of -0.1 on the EDI (Vdem's Electoral Democcracy Index) between the start and end of a sequence.}
 
 \item{tolerance}{A threshold to specify the number of "stasis" observations (\emph{i.e.}, observations neither increasing
-or decreasing significantly) permitted before stopping a sequence. By default 10 years.}
+or decreasing significantly) permitted before stopping a sequence. By default 5 years.}
 
 \item{output}{The default output is a data frame. Alternatively, output = "summary" prints the overall observed numbers of each episode types to the console,
 output = "table" compiles a short table showing each country with start and end year of each episode and episode ID.}
 }
 \value{
 A data frame specifying episodes of democratization in the most recent Vdem data set: democratic deepening for those episodes starting in democracy ("dem_ep_dem") and
-autocratic adaptation for those episodes starting in autocracy ("dem_ep_aut"), further distinguishing successful opening episodes ("success"), and three types of failure,
+liberalization for those episodes starting in autocracy ("dem_ep_aut"), further distinguishing successful episodes of democratic transitions ("success"), and three types of failure,
 (1) preempted ("fail_preem"), (2) reverted ("fail_rev"), and (3) stabilized autocracy ("fail_stab").
 }
 \description{
 Helps to identify episodes of democratization (liberalization, democratic deepening) in the most recent vdem data set.
 \emph{Democratization} is an umbrella term for any movement towards demcracy - be it in autocracies or democracies.
-\emph{Autocratic adaptation} is defined as a subtype of democratiztion and specifically focuses on any movement towards democracy
+\emph{liberalization} is defined as a subtype of democratiztion and specifically focuses on any movement towards democracy
 which starts in autocracies. \emph{Democratic deepening} is also a subtype of democratization and
 concerns all those which are already democratic and further improve their democratic traits (cf. Wilson et al., 2020).
 }
