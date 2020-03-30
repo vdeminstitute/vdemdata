@@ -10,11 +10,10 @@ We are a team of over 50 social scientists on six continents. We work with more 
 
 ## The vdemdata R package ##
 
-This package contains the most recent V-Dem dataset and provides some additional functions.
+This package contains the most recent V-Dem dataset (v10) and provides some additional functions.
 
 #### Basics: ####
 * `vdem`: Load the dataset
-* `fill_vdem`: Load the dataset with filled election variables (observed only in election years, after filled with values of election years to facilitate country-year obs.)
 * `var_info`: Print to the console basic information on a specific variable as given in the codebook
 * `find_var`: Search variables via keywords
 
