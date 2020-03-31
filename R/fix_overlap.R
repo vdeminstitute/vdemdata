@@ -20,28 +20,24 @@ fix_overlap <- function(
   aut_ep = vdemdata::get_aut(),
   overlap = vdemdata::find_overlap(dem_ep, aut_ep),
   merged = dem_ep %>%
-    left_join(aut_ep))
+    full_join(aut_ep))
 {
-
+  
   method <- menu(c("Manually (case-by-case)", "Assign all the same way"), title= "How do you want to fix the overlap?")
   if (method == 2){
     which_assign <- menu(c("As autocratization episode years", "As democratization episode years", "To both","To neither"), title="How would you like to assign the overlappling country-years?")
     if(which_assign == 1){
       for(i in nrow(overlap)){
         assign = "Autocratization episodes"
-        merged[merged$country_text_id == as.character(overlap[i,1]) & merged$year == as.numeric(overlap[i,2]),
-               c("dem_ep_type", "dem_pre_ep_year", "dem_ep_type_all")] <- 0
-        merged[merged$country_text_id == as.character(overlap[i,1]) & merged$year == as.numeric(overlap[i,2]),
-               c("dem_ep_start_year", "dem_ep_end_year", "dem_ep_id", "dem_ep_char_id")] <- NA
+        merged[merged$country_text_id == as.character(overlap[i,2]) & merged$year == as.numeric(overlap[i,3]),
+               c("dem_ep")] <- 0
       }
     }
     if(which_assign == 2){
       for(i in nrow(overlap)){
         assign = "Democratization episodes"
-        merged[merged$country_text_id == as.character(overlap[i,1]) & merged$year == as.numeric(overlap[i,2]),
-               c("aut_ep", "aut_pre_ep_year", "aut_ep_all")] <- 0
-        merged[merged$country_text_id == as.character(overlap[i,1]) & merged$year == as.numeric(overlap[i,2]),
-               c("aut_ep_start_year", "aut_ep_end_year", "aut_ep_char_id")] <- NA
+        merged[merged$country_text_id == as.character(overlap[i,2]) & merged$year == as.numeric(overlap[i,3]),
+               c("aut_ep")] <- 0
       }
     }
     if(which_assign == 3){
@@ -50,23 +46,19 @@ fix_overlap <- function(
     if(which_assign == 4){
       for(i in nrow(overlap)){
         assign = "neither"
-        merged[merged$country_text_id == as.character(overlap[i,1]) & merged$year == as.numeric(overlap[i,2]),
-               c("dem_ep_type", "dem_pre_ep_year", "dem_ep_type_all")] <- 0
-        merged[merged$country_text_id == as.character(overlap[i,1]) & merged$year == as.numeric(overlap[i,2]),
-               c("dem_ep_start_year", "dem_ep_end_year", "dem_ep_id", "dem_ep_char_id")] <- NA
-        merged[merged$country_text_id == as.character(overlap[i,1]) & merged$year == as.numeric(overlap[i,2]),
-               c("aut_ep", "aut_pre_ep_year", "aut_ep_all")] <- 0
-        merged[merged$country_text_id == as.character(overlap[i,1]) & merged$year == as.numeric(overlap[i,2]),
-               c("aut_ep_start_year", "aut_ep_end_year", "aut_ep_char_id")] <- NA
+        merged[merged$country_text_id == as.character(overlap[i,2]) & merged$year == as.numeric(overlap[i,3]),
+               c("dem_ep")] <- 0
+        merged[merged$country_text_id == as.character(overlap[i,2]) & merged$year == as.numeric(overlap[i,3]),
+               c("aut_ep")] <- 0
       }
     }
-
+    
     print(paste0("Thank you. All overlapping country-years have been assigned to ", assign))
   }
   if (method == 1){
     overlap2 <- overlap %>% left_join(merged)
-    for(i in unique(overlap2$dem_ep_id)){
-      dat <- overlap2 %>% filter(dem_ep_id == i)
+    for(i in unique(overlap2$year)){
+      dat <- overlap2 %>% filter(year == i)
       start_year <- dat$year[1] - 5
       end_year <- dat$year[nrow(dat)] + 5
       merged_overlap <- merged %>%
@@ -84,25 +76,21 @@ fix_overlap <- function(
       #                                 T~as.character(v2x_polyarchy)),
       #        overlap_ind = case_when(overlap_ind == 1~ crayon::red(as.character(overlap_ind)),
       #                                  T~as.character(overlap_ind)))
-
+      
       print(as.data.frame(merged_overlap))
       which_assign <- menu(c("Assign overlap to autocratization", "Assign overlap to democratization", "Assign to both", "Assign to neither"), title= "How do you want to fix the overlap?")
       if(which_assign == 1){
         for(i in 1:nrow(dat)){
           assign = "Autocratization episodes"
-          merged[merged$country_text_id == as.character(dat[i,1]) & merged$year == as.numeric(dat[i,2]),
-                 c("dem_ep_type", "dem_pre_ep_year", "dem_ep_type_all")] <- 0
-          merged[merged$country_text_id == as.character(dat[i,1]) & merged$year == as.numeric(dat[i,2]),
-                 c("dem_ep_start_year", "dem_ep_end_year", "dem_ep_id", "dem_ep_char_id")] <- NA
+          merged[merged$country_text_id == as.character(dat[i,2]) & merged$year == as.numeric(dat[i,3]),
+                 c("dem_ep")] <- 0
         }
       }
       if(which_assign == 2){
         for(i in 1:nrow(dat)){
           assign = "Democratization episodes"
-          merged[merged$country_text_id == as.character(dat[i,1]) & merged$year == as.numeric(dat[i,2]),
-                 c("aut_ep", "aut_pre_ep_year", "aut_ep_all")] <- 0
-          merged[merged$country_text_id == as.character(dat[i,1]) & merged$year == as.numeric(dat[i,2]),
-                 c("aut_ep_start_year", "aut_ep_end_year", "aut_ep_char_id")] <- NA
+          merged[merged$country_text_id == as.character(dat[i,2]) & merged$year == as.numeric(dat[i,3]),
+                 c("aut_ep")] <- 0
         }
       }
       if(which_assign == 3){
@@ -111,14 +99,10 @@ fix_overlap <- function(
       if(which_assign == 4){
         for(i in 1:nrow(dat)){
           assign = "neither"
-          merged[merged$country_text_id == as.character(dat[i,1]) & merged$year == as.numeric(dat[i,2]),
-                 c("dem_ep_type", "dem_pre_ep_year", "dem_ep_type_all")] <- 0
-          merged[merged$country_text_id == as.character(dat[i,1]) & merged$year == as.numeric(dat[i,2]),
-                 c("dem_ep_start_year", "dem_ep_end_year", "dem_ep_id", "dem_ep_char_id")] <- NA
-          merged[merged$country_text_id == as.character(dat[i,1]) & merged$year == as.numeric(dat[i,2]),
-                 c("aut_ep", "aut_pre_ep_year", "aut_ep_all")] <- 0
-          merged[merged$country_text_id == as.character(dat[i,1]) & merged$year == as.numeric(dat[i,2]),
-                 c("aut_ep_start_year", "aut_ep_end_year", "aut_ep_char_id")] <- NA
+          merged[merged$country_text_id == as.character(dat[i,2]) & merged$year == as.numeric(dat[i,3]),
+                 c("dem_ep")] <- 0
+          merged[merged$country_text_id == as.character(dat[i,2]) & merged$year == as.numeric(dat[i,3]),
+                 c("aut_ep")] <- 0
         }
       }
       if(which_assign %in% c(1:4)){
@@ -130,19 +114,15 @@ fix_overlap <- function(
           if(ind_year == 1){
             for(i in 1:nrow(dat)){
               assign = "Autocratization episodes"
-              merged[merged$country_text_id == as.character(dat[i,1]) & merged$year == as.numeric(dat[i,2]),
-                     c("dem_ep_type", "dem_pre_ep_year", "dem_ep_type_all")] <- 0
-              merged[merged$country_text_id == as.character(dat[i,1]) & merged$year == as.numeric(dat[i,2]),
-                     c("dem_ep_start_year", "dem_ep_end_year", "dem_ep_id", "dem_ep_char_id")] <- NA
+              merged[merged$country_text_id == as.character(dat[i,2]) & merged$year == as.numeric(dat[i,3]),
+                     c("dem_ep")] <- 0
             }
           }
           if(ind_year == 2){
             for(i in 1:nrow(dat)){
               assign = "Democratization episodes"
-              merged[merged$country_text_id == as.character(dat[i,1]) & merged$year == as.numeric(dat[i,2]),
-                     c("aut_ep", "aut_pre_ep_year", "aut_ep_all")] <- 0
-              merged[merged$country_text_id == as.character(dat[i,1]) & merged$year == as.numeric(dat[i,2]),
-                     c("aut_ep_start_year", "aut_ep_end_year", "aut_ep_char_id")] <- NA
+              merged[merged$country_text_id == as.character(dat[i,2]) & merged$year == as.numeric(dat[i,3]),
+                     c("aut_ep")] <- 0
             }
           }
           if(ind_year == 3){
@@ -151,14 +131,10 @@ fix_overlap <- function(
           if(ind_year == 4){
             for(i in 1:nrow(dat)){
               assign = "neither"
-              merged[merged$country_text_id == as.character(dat[i,1]) & merged$year == as.numeric(dat[i,2]),
-                     c("dem_ep_type", "dem_pre_ep_year", "dem_ep_type_all")] <- 0
-              merged[merged$country_text_id == as.character(dat[i,1]) & merged$year == as.numeric(dat[i,2]),
-                     c("dem_ep_start_year", "dem_ep_end_year", "dem_ep_id", "dem_ep_char_id")] <- NA
-              merged[merged$country_text_id == as.character(dat[i,1]) & merged$year == as.numeric(dat[i,2]),
-                     c("aut_ep", "aut_pre_ep_year", "aut_ep_all")] <- 0
-              merged[merged$country_text_id == as.character(dat[i,1]) & merged$year == as.numeric(dat[i,2]),
-                     c("aut_ep_start_year", "aut_ep_end_year", "aut_ep_char_id")] <- NA
+              merged[merged$country_text_id == as.character(dat[i,2]) & merged$year == as.numeric(dat[i,3]),
+                     c("dem_ep")] <- 0
+              merged[merged$country_text_id == as.character(dat[i,2]) & merged$year == as.numeric(dat[i,3]),
+                     c("aut_ep")] <- 0
             }
           }
           print(paste0("You have assigned the ",i," observation to ", assign))

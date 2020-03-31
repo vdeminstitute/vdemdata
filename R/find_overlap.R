@@ -21,9 +21,9 @@
 find_overlap <-function(
   dem_ep = vdemdata::get_dem(),
   aut_ep = vdemdata::get_aut())
-  {
+{
   merged = dem_ep %>%
-    left_join(aut_ep)
+    full_join(aut_ep)
   aut <- merged %>% filter(aut_ep == 1) %>% dplyr::select(country_name, year)
   dem <- merged  %>% filter(dem_ep == 1) %>% dplyr::select(country_name, year)
   overlap <- rbind(aut,dem)[duplicated(rbind(aut,dem)),]
