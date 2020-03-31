@@ -1,0 +1,2 @@
+# Use C++11 if available
+CXX_STD=CXX11
