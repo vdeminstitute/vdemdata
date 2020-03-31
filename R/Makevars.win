@@ -1,2 +1,2 @@
-# Use C++11 if available
-CXX_STD=CXX11
+CXX_STD = CXX11
+CXX=clang++
