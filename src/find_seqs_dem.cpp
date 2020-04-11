@@ -77,7 +77,9 @@ NumericVector find_seqs_dem(NumericVector v,
       count++;
       tolerance_count = 0;
       change = 0;
-      q = {};
+
+      queue<int> empty;
+      swap(q, empty);
     }
 
   }
