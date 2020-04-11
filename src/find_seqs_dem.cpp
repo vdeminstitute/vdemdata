@@ -33,7 +33,7 @@ NumericVector find_seqs_dem(NumericVector v,
   size_t d_len = d.size();
 
 //start of a loop that looks for the beginning of an episode (d[i] >= start_incl). Records the index of the d value that is greater than start_incl in q. resets the tolerance count and total diff to zero since this if() statement only occurs at the beginning of an episode.
-  for (int i = 0; i < d_len; i++) {
+  for (size_t i = 0; i < d_len; i++) {
     if (d[i] >= start_incl) {
       q.push(i);
       tolerance_count = 0;
