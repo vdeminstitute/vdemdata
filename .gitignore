@@ -5,3 +5,6 @@
 .README.html
 .README.Rmd
 .Rproj
+
+src/*.o
+src/*.so
