@@ -17,6 +17,8 @@ Imports:
   stringr,
   hablar,
   Rcpp
+Suggests:
+    testthat
 LinkingTo: Rcpp
 License: GPL-3
 Encoding: UTF-8
