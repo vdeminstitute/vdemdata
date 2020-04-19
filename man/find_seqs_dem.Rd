@@ -14,6 +14,7 @@ find_seqs_dem(
 )
 }
 \description{
-This is a subfunction (c++) of vdemdata::get_dem
-see the documentation of vdemdata::get_dem (?get_dem) for details on parameters, etc.
+This is a subfunction (c++) of vdemdata::get_dem see the
+documentation of vdemdata::get_dem (?get_dem) for details on
+parameters, etc.
 }

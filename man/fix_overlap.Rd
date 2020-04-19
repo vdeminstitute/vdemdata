@@ -5,19 +5,17 @@
 \title{An interactive function to fix the overlap between episodes of democratization and autocratization.}
 \usage{
 fix_overlap(
-  dem_ep = vdemdata::get_dem(),
-  aut_ep = vdemdata::get_aut(),
-  overlap = vdemdata::find_overlap(dem_ep, aut_ep),
-  merged = dem_ep \%>\% full_join(aut_ep)
+  episodes = vdemdata::get_eps(),
+  overlap = vdemdata::find_overlap(episodes)
 )
 }
 \arguments{
-\item{dem_ep}{The outcome of get_dem(), democratization episodes. By default with standard parameters.}
+\item{episodes}{The outcome of get_eps(), episodes of regime transformation (ERT), to be used for fixing potential overlaps (depending on individual parameter setting). By default with standard parameters.}
 
-\item{aut_ep}{The outcome of get_aut(), autocratization episodes. By default with standard parameters.}
+\item{overlap}{The outcome of find_overlap(merged), depending on individual parameter settings.}
 }
 \value{
-Recoding of overlapping episodes based on the interactive function.
+A "merged" dataframe after recoding overlapping episodes based on the interactive function.
 }
 \description{
 An interactive function to fix the overlap between episodes of democratization and autocratization.
@@ -26,6 +24,6 @@ An interactive function to fix the overlap between episodes of democratization a
 #Don't run
 #Fix the overlap between democratization and autocratization episodes
 
-#fix_overlap(dem_ep, aut_ep)
+#fix_overlap(episodes)
 
 }

@@ -4,12 +4,10 @@
 \alias{find_overlap}
 \title{Find the overlap between episodes of democratization and autocratization.}
 \usage{
-find_overlap(dem_ep = vdemdata::get_dem(), aut_ep = vdemdata::get_aut())
+find_overlap(episodes = vdemdata::get_eps())
 }
 \arguments{
-\item{dem_ep}{The outcome of get_dem(), democratization episodes. By default with standard parameters.}
-
-\item{aut_ep}{The outcome of get_aut(), autocratization episodes. By default with standard parameters.}
+\item{episodes}{The outcome of get_eps(), episodes of regime transformation (ERT), to be used for finding potential overlaps (depending on individual parameter setting). By default with standard parameters.}
 }
 \value{
 A data frame showing the country/year of overlaps between democratization and autocratization episodes.
@@ -21,9 +19,6 @@ Find the overlap between episodes of democratization and autocratization.
 #Don't run
 #Find the overlap between democratization and autocratization episodes
 
-#democratization_episodes <- get_dem()
-#autocratization_episodes <- get_aut()
-
-#overlap <- find_overlap(democratization_episodes, autocratization_episodes)
+#overlap <- find_overlap(episodes)
 
 }

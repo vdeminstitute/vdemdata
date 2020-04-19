@@ -4,6 +4,7 @@ Title: Provides most recent V-Dem data and some additional features
 Version: 0.1.0
 Authors@R: c(person("Seraphine", "Maerz", email = "seraphine.maerz@v-dem.net", role = c("aut", "cre")),
               person("Amanda", "Edgell", email = "amanda.edgell@v-dem.net", role = c("aut")),
+              person("Joshua", "Krusell", email = "js.shirin@gmail.com", role = c("aut")),
               person("Laura", "Maxwell", email = "laura.maxwell@v-dem.net", role = c("aut")),
 	            person("Sebastian", "Hellmeier", email = "sebastian.hellmeier@v-dem.net", role = c("aut")),
 	            person("Nina", "Ilchenko", email = "nina.ilchenko@v-dem.net", role = c("aut")))
@@ -16,11 +17,12 @@ Imports:
   ggplot2,
   stringr,
   hablar,
-  Rcpp
-Suggests:
-    testthat
+  Rcpp,
+  tidyverse,
+  plm,
+  testthat
 LinkingTo: Rcpp
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0

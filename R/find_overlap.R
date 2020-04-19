@@ -1,8 +1,6 @@
 #' Find the overlap between episodes of democratization and autocratization.
 #'
-#' @param dem_ep The outcome of get_dem(), democratization episodes. By default with standard parameters.
-#'
-#' @param aut_ep The outcome of get_aut(), autocratization episodes. By default with standard parameters.
+#' @param episodes The outcome of get_eps(), episodes of regime transformation (ERT), to be used for finding potential overlaps (depending on individual parameter setting). By default with standard parameters.
 #'
 #' @return A data frame showing the country/year of overlaps between democratization and autocratization episodes.
 #'
@@ -13,17 +11,12 @@
 #' #Don't run
 #' #Find the overlap between democratization and autocratization episodes
 #'
-#' #democratization_episodes <- get_dem()
-#' #autocratization_episodes <- get_aut()
-#'
-#' #overlap <- find_overlap(democratization_episodes, autocratization_episodes)
+#' #overlap <- find_overlap(episodes)
 #'
 find_overlap <-function(
-  dem_ep = vdemdata::get_dem(),
-  aut_ep = vdemdata::get_aut())
+  episodes = vdemdata::get_eps())
 {
-  merged = dem_ep %>%
-    full_join(aut_ep)
+  merged <- episodes
   aut <- merged %>% filter(aut_ep == 1) %>% dplyr::select(country_name, year)
   dem <- merged  %>% filter(dem_ep == 1) %>% dplyr::select(country_name, year)
   overlap <- rbind(aut,dem)[duplicated(rbind(aut,dem)),]
