@@ -22,7 +22,8 @@
 #' between the start and end of a sequence. By default a cumulative change of +/-0.1 on the EDI.
 #'
 #' @param year_turn A threshold to identify a sudden "turn" during a year of an ongoing episode (=failed democratization/autocratization).
-#' By default a yearly change of +/-0.03 on the EDI (Vdem's Electoral Democracy Index).
+#' By default a yearly change of +/-0.03 on the EDI (Vdem's Electoral Democracy Index). Note: Advanced users who wish to remove this criteria altogether
+#' should set the value of year turn equal to cum turn. Setting this to zero would allow for an episode to terminate when any year of no change is encountered.
 #'
 #' @param cum_turn A threshold to identify a gradual "turn" during an ongoing episode (=failed democratization/autocratization).
 #' By default a cumulative change of -0.1 on the EDI (Vdem's Electoral Democcracy Index) between the start and end of a sequence.
@@ -62,7 +63,11 @@ get_eps <- function(data = vdemdata::vdem,
                              cum_turn = 0.1,
                              tolerance = 5)
                              {
-  ### DATA CLEANING AND PREP ###
+
+  if(year_turn == 0)
+    print("You set year_turn = 0. Did you mean to do this? Doing so means an episode ends when it experiences a year of no annual change on the EDI. Perhaps, instead, you meant to set its value equal to cum_turn. See p.3 of the ERT codebook.")
+
+   ### DATA CLEANING AND PREP ###
 
   # selecting the variables we need to construct the episodes dataframe #
 

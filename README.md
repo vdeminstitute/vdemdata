@@ -20,7 +20,7 @@ This package contains the most recent V-Dem dataset (v10) and provides some addi
 #### Graphics: ####
 * `plot_indicator`: Plot V-Dem indicators for exploratory data analysis.
 
-#### Data on episodes of regime transitions (autocratization and democratization): ####
+#### Data on Episodes of Regime Transitions (ERT, for details see also the [ERT Codebook](https://github.com/vdeminstitute/vdemdata/blob/master/ERT_codebook.pdf)): ####
 * `get_eps`: Identify episodes of regime transitions (autocratization, democratization) in the most recent vdem data set. Autocratization is defined as any movement towards autocracy which starts within democracies or autocracies [(cf. Lührmann and Lindberg, Democratization, 2019)](https://www.tandfonline.com/doi/full/10.1080/13510347.2019.1582029). Democratization is defined as any movement towards democracy which starts in autocracies or democracies [(cf. Wilson et al., 2020)](https://www.v-dem.net/en/news-publications/working-papers/)
 * `find_overlap`: Find potential overlaps between episodes of democratization and autocratization which may occur depending on how the thresholds are set.
 * `fix_overlap`: Interactive function to fix potential overlaps between episodes of democratization and autocratization which may occur depending on how the thresholds are set.
