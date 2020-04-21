@@ -16,6 +16,7 @@
 find_overlap <-function(
   episodes = vdemdata::get_eps())
 {
+  aut_ep <- country_name <- year <- dem_ep <- NULL
   merged <- episodes
   aut <- merged %>% filter(aut_ep == 1) %>% dplyr::select(country_name, year)
   dem <- merged  %>% filter(dem_ep == 1) %>% dplyr::select(country_name, year)

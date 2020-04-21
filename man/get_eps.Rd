@@ -10,7 +10,8 @@ get_eps(
   cum_incl = 0.1,
   year_turn = 0.03,
   cum_turn = 0.1,
-  tolerance = 5
+  tolerance = 5,
+  output = "df"
 )
 }
 \arguments{
@@ -60,7 +61,8 @@ which starts in democracies. \emph{Autocratic regression} is also a subtype of a
 concerns all those which are already autocratic and further decline (cf. Boese et al., forthcoming in Democratization, 2020).
 }
 \examples{
-Get the episodes with standard parameters:
-episodes <- get_eps()
+#Don't run
+#Get the episodes with standard parameters:
+#episodes <- get_eps()
 
 }

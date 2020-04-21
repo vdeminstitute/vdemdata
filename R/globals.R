@@ -1,0 +1,16 @@
+utils::globalVariables(c("country_id", "country_text_id", "country_name", "year",
+                          "v2x_regime", "v2x_polyarchy", "v2x_polyarchy_codelow", "v2x_polyarchy_codehigh",
+                          "reg_start_year", "reg_end_year", "reg_id", "reg_type" ,
+                          "reg_trans", "founding_elec", "row_regch_event", "row_regch_censored",
+                           "dem_ep", "dem_ep_id", "dem_ep_start_year", "dem_ep_end_year" ,
+                          "dem_pre_ep_year", "dem_ep_termination", "sub_dem_ep", "sub_dem_ep_id",
+                          "sub_dem_ep_start_year", "sub_dem_ep_end_year", "dem_ep_outcome", "dem_ep_censored" ,
+                           "aut_ep", "aut_ep_id", "aut_ep_start_year", "aut_ep_end_year" ,
+                           "aut_pre_ep_year", "aut_ep_termination", "sub_aut_ep", "sub_aut_ep_id" ,
+                          "sub_aut_ep_start_year","sub_aut_ep_end_year","aut_ep_outcome","aut_ep_censored",
+                         "codingstart", "codingend", "gapstart1", "gapstart2", "gapstart3", "gapend1", "gapend2",
+                         "gapend3", "v2elasmoff_ord", "gapstart", "gapend", "row_regch_year", "row_regch_filled",
+                         "v2eltype_0", "v2eltype_4", "v2eltype_6", "dem_founding_elec", "row_demtrans_dum", "aut_founding_elec",
+                         "aut_stabilized", "aut_closed", "row_breakdown_dum", "codingstart2", "episode_id", "character_id",
+                         "last_ch_year", "newid", "back_closed", "origsample"))
+

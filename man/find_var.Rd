@@ -7,8 +7,8 @@
 find_var(keywords)
 }
 \arguments{
-\item{keywords}{A character vector of length one with one or 
-several keywords separated by comma to search in 
+\item{keywords}{A character vector of length one with one or
+several keywords separated by comma to search in
 the name of the variable. You can also pass regex
 notation (see \code{examples(find_var)}).}
 }
