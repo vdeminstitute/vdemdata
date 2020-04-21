@@ -41,7 +41,7 @@
 #' }
 #' @export
 plot_indicator <- function(indicator, countries = NULL, min_year = min(vdemdata::vdem$year), max_year = max(vdemdata::vdem$year), uncertainty = T) {
-
+year <- country_name <- value <- mean_indicator <- vdem <- name <- type <- codelow <- codehigh <- NULL
   # Specify sensible colors for plotted lines
   colour_palette <- c("#000000", "#E69F00", "#800080", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#800000", "#00FF00")
 
