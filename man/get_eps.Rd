@@ -24,7 +24,8 @@ By default a change in the EDI (Vdem's Electoral Democracy Index) of at least +/
 between the start and end of a sequence. By default a cumulative change of +/-0.1 on the EDI.}
 
 \item{year_turn}{A threshold to identify a sudden "turn" during a year of an ongoing episode (=failed democratization/autocratization).
-By default a yearly change of +/-0.03 on the EDI (Vdem's Electoral Democracy Index).}
+By default a yearly change of +/-0.03 on the EDI (Vdem's Electoral Democracy Index). Note: Advanced users who wish to remove this criteria altogether
+should set the value of year turn equal to cum turn. Setting this to zero would allow for an episode to terminate when any year of no change is encountered.}
 
 \item{cum_turn}{A threshold to identify a gradual "turn" during an ongoing episode (=failed democratization/autocratization).
 By default a cumulative change of -0.1 on the EDI (Vdem's Electoral Democcracy Index) between the start and end of a sequence.}
