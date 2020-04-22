@@ -287,12 +287,12 @@ get_eps <- function(data = vdemdata::vdem,
   names <- paste0('year', seq(1:tolerance))
   colnames(df1) <- names
   # this transforms the result into a dataframe that we can use as a column in our existing dataframe
+  # first write a small function to deal with Inf
+  my.min <- function(x) ifelse(!all(is.na(x)), min(x, na.rm=T), NA)
   year_drop <- df1 %>%
-    dplyr::mutate(year_drop = ifelse(apply(df1, 1, FUN = min, na.rm=TRUE) < year_turn*-1, 1,NA))  %>%
+    dplyr::mutate(year_drop = ifelse(apply(df1, 1, FUN = my.min) < year_turn*-1, 1,NA))  %>%
     dplyr::select(year_drop)
-
   # now we can also use the first-differences we calculated above to look for stasis as well
-  # this transforms the result into a dataframe that we can use as a column in our existing dataframe
   # note - we will have to clean this up later to account for cum_turn as well
   stasis <- df1 %>%
     # this checks whether the maximum annual change is less than start_incl over the tolerance period &
@@ -311,7 +311,7 @@ get_eps <- function(data = vdemdata::vdem,
   names <- paste0('cum', seq(1:tolerance))
   colnames(df) <- names
   cum_drop <- df %>%
-    dplyr::mutate(cum_drop = ifelse(apply(df, 1, FUN = min, na.rm=TRUE) <= cum_turn*-1, 1,NA)) %>%
+    dplyr::mutate(cum_drop = ifelse(apply(df, 1, FUN = my.min) <= cum_turn*-1, 1,NA)) %>%
     dplyr::select(cum_drop)
 
   # merge these new columns to our full.df
@@ -485,10 +485,11 @@ get_eps <- function(data = vdemdata::vdem,
   names <- paste0('year', seq(1:tolerance))
   colnames(df1) <- names
   # this transforms the result into a dataframe that we can use as a column in our existing dataframe
+  # first write a function to deal with INF warnings
+  my.max <- function(x) ifelse(!all(is.na(x)), max(x, na.rm=T), NA)
   year_incr <- df1 %>%
-    dplyr::mutate(year_incr = ifelse(apply(df1, 1, FUN = max, na.rm=TRUE) > year_turn, 1,NA))  %>%
+    dplyr::mutate(year_incr = ifelse(apply(df1, 1, FUN = my.max) > year_turn, 1,NA))  %>%
     dplyr::select(year_incr)
-
   # now we can also use the first-differences we calculated above to look for stasis as well
   # this transforms the result into a dataframe that we can use as a column in our existing dataframe
   # note - we will have to clean this up later to account for cum_turn as well
@@ -509,7 +510,7 @@ get_eps <- function(data = vdemdata::vdem,
   names <- paste0('cum', seq(1:tolerance))
   colnames(df) <- names
   cum_incr <- df %>%
-    dplyr::mutate(cum_incr = ifelse(apply(df, 1, FUN = max, na.rm=TRUE) >= cum_turn, 1,NA)) %>%
+    dplyr::mutate(cum_incr = ifelse(apply(df, 1, FUN = my.max) >= cum_turn, 1,NA)) %>%
     dplyr::select(cum_incr)
 
   # merge these new columns to our full.df
