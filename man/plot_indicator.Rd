@@ -46,13 +46,13 @@ and might not be useful for all types of indicators in the data.
 \examples{
 \dontrun{
 # Plot V-Dem indicators liberal democracy and egalitarian democracy
-for Sweden and Germany between 1912 and 2000.
+# for Sweden and Germany between 1912 and 2000.
 
  plot_indicator(indicator=c( "v2x_egaldem", "v2x_libdem"), countries = c("Germany", "Sweden"),
                      min_year = 1912, max_year = 2000)
 
 # Plot the global averages of V-Dem indicators electoral and egalitarian democracy
- between 1940 and 2010.
+# between 1940 and 2010.
 
  plot_indicator(indicator=c("v2x_polyarchy", "v2x_egaldem"),
                      min_year = 1940, max_year = 2010)
