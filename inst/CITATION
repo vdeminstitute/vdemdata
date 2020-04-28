@@ -5,6 +5,7 @@ citEntry(
   title    = "{Vdemdata - an R package to load, explore and work with the most recent V-Dem (Varieties of Democracy) dataset}",
   author   = personList(as.person("Seraphine Maerz"),
          as.person("Amanda Edgell"),
+         as.person("Joshua Krusell"),
          as.person("Laura Maxwell"),
          as.person("Sebastian Hellmeier"),
          as.person("Nina Ilchenko")),
