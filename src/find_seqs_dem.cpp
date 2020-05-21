@@ -37,7 +37,7 @@ NumericVector find_seqs_dem(NumericVector v,
   if (start_incl < 0 || year_turn > 0 || cum_turn > 0)
     stop("start_incl must be positive and year_turn and cum_turn negative");
 
-  if (tolerance == 0)
+  if (tolerance <= 0)
     stop("Tolerance threshold must be greater than zero");
 
   NumericVector out = NumericVector(v.size(), NumericVector::get_na()),
