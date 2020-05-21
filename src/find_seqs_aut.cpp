@@ -94,7 +94,7 @@ NumericVector find_seqs_aut(NumericVector v,
     //
     // NOTE: also here mirrored!
     if (i == d_len - 1 || tolerance_count == tolerance || NumericVector::is_na(d[i]) ||
-        d[i] > year_turn|| change > cum_turn || (r2[i] < 0 && r[i+1] == 3)) {
+        d[i] > year_turn|| change > cum_turn || (r2[i] > 0 && r[i+1] == 3)) {
       int head = q.front(), tail;
 
       // Include stasis period
