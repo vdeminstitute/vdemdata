@@ -7,6 +7,7 @@
 #  - No further changes over the starting threshold (start_incl) for a
 #    fixed period of time (tolerance)
 #  - Missing value
+#  - v2x_regime reverts to 0
 ###
 
 test_that("Invalid function arguments", {
@@ -84,7 +85,7 @@ test_that("Stasis", {
 
     # TODO: Is this the expected behaviour we want?
     out <- find_seqs_dem(polyarchy, regime, year_turn = -2, cum_turn = -2, tolerance = 2)
-    expect_equal(out, c(NA, 1, 1, 1, 1, 1))
+    expect_equal(out, c(NA, 1, 1, 1, NA, NA))
 })
 
 test_that("Handles NA", {
