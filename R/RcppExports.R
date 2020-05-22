@@ -7,7 +7,7 @@
 #' documentation of vdemdata::get_aut (?get_aut) for details on
 #' parameters, etc.
 #'
-find_seqs_aut <- function(v, r, start_incl = 0, year_turn = 0, cum_turn = 0, tolerance = 0L) {
+find_seqs_aut <- function(v, r, start_incl = -0.01, year_turn = 0.03, cum_turn = 0.1, tolerance = 5L) {
     .Call('_vdemdata_find_seqs_aut', PACKAGE = 'vdemdata', v, r, start_incl, year_turn, cum_turn, tolerance)
 }
 
@@ -17,7 +17,7 @@ find_seqs_aut <- function(v, r, start_incl = 0, year_turn = 0, cum_turn = 0, tol
 #' documentation of vdemdata::get_dem (?get_dem) for details on
 #' parameters, etc.
 #'
-find_seqs_dem <- function(v, r, start_incl = 0, year_turn = 0, cum_turn = 0, tolerance = 0L) {
+find_seqs_dem <- function(v, r, start_incl = 0.01, year_turn = -0.03, cum_turn = -0.1, tolerance = 5L) {
     .Call('_vdemdata_find_seqs_dem', PACKAGE = 'vdemdata', v, r, start_incl, year_turn, cum_turn, tolerance)
 }
 

@@ -7,10 +7,10 @@
 find_seqs_aut(
   v,
   r,
-  start_incl = 0,
-  year_turn = 0,
-  cum_turn = 0,
-  tolerance = 0L
+  start_incl = -0.01,
+  year_turn = 0.03,
+  cum_turn = 0.1,
+  tolerance = 5L
 )
 }
 \description{
