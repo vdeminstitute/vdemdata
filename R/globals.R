@@ -12,5 +12,5 @@ utils::globalVariables(c("country_id", "country_text_id", "country_name", "year"
                          "gapend3", "v2elasmoff_ord", "gapstart", "gapend", "row_regch_year", "row_regch_filled",
                          "v2eltype_0", "v2eltype_4", "v2eltype_6", "dem_founding_elec", "row_demtrans_dum", "aut_founding_elec",
                          "aut_stabilized", "aut_closed", "row_breakdown_dum", "codingstart2", "episode_id", "character_id",
-                         "last_ch_year", "newid", "back_closed", "origsample"))
+                         "last_ch_year", "newid", "back_closed", "origsample", "overlap", "ep_type", "episode", "dem_eps", "aut_eps", "countries"))
 

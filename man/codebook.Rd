@@ -4,9 +4,7 @@
 \name{codebook}
 \alias{codebook}
 \title{V-Dem codebook}
-\format{
-A data frame with 785 observations and 12 variables
-}
+\format{A data frame with 785 observations and 12 variables}
 \source{
 https://www.v-dem.net/en/data/data-version-10/
 }
