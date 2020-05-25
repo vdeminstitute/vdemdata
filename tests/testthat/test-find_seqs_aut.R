@@ -12,8 +12,6 @@
 
 test_that("Invalid function arguments", {
     expect_error(find_seqs_aut(c(1, 2), 1))
-    expect_error(find_seqs_aut(c(1, 2), c(1, NA)))
-    expect_error(find_seqs_aut(c(1, NA), c(1, 2)))
     expect_error(find_seqs_aut(1, 1, start_incl = 1))
     expect_error(find_seqs_aut(1, 1, year_turn = -1))
     expect_error(find_seqs_aut(1, 1, cum_turn = -1))
