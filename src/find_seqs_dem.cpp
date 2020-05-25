@@ -29,11 +29,6 @@ NumericVector find_seqs_dem(NumericVector v,
   if (v.size() != r.size())
     stop("Mismatched vector lengths");
 
-  for (size_t i = 0; i < v.size(); i++) {
-    if (NumericVector::is_na(v[i]) != NumericVector::is_na(r[i]))
-      stop("Mismatched NAs in vectors");
-  }
-
   if (start_incl < 0 || year_turn > 0 || cum_turn > 0)
     stop("start_incl must be positive and year_turn and cum_turn negative");
 
