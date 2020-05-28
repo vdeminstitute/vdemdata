@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_episodes.R
 \name{plot_episodes}
 \alias{plot_episodes}
-\title{Plot autocratization and democratization episodes over time.}
+\title{Plot Episodes of Regime Transformation (ERT) over time.}
 \usage{
 plot_episodes(
   abs = T,
@@ -45,7 +45,7 @@ or decreasing significantly) permitted before stopping a sequence. By default 5 
 The output of this function is a [ggplot2:ggplot()] object with global or country-specific episodes.
 }
 \description{
-`plot_episodes` plots democratization and autocratization episodes over time. It shows either
+`plot_episodes` plots Episodes of Regime Transformation (ERT) over time. It shows either
 the global number/share of countries undergoing democratization and autocratization or
 episodes for an individual country.
 }

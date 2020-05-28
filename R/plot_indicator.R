@@ -23,7 +23,7 @@
 #' @return The output of this function is a [ggplot2:ggplot()] object with lines and points
 #'  for global averages of the selected indicators or point estimates for selected countries.
 #'
-#' @import ggplot2 stringr tidyr
+#' @import dplyr ggplot2 tidyr tidyselect
 #'
 #' @examples
 #' \dontrun{

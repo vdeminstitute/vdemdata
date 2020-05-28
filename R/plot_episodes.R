@@ -37,7 +37,7 @@
 #'
 #' @return The output of this function is a [ggplot2:ggplot()] object with global or country-specific episodes.
 
-#' @import ggplot2 tidyr dplyr stringr
+#' @import dplyr ggplot2 tidyr stringr
 #'
 #' @examples
 #' \dontrun{
@@ -73,21 +73,21 @@ plot_episodes <- function(abs = T,
 
 year <- country_name <- dem_ep <- aut_ep <- overlap_eps <- country_text_id <- v2x_polyarchy <-
   ep_type <- episode <- vdem <- aut_ep_start_year <- aut_ep_end_year <-
-  dem_ep_start_year <- dem_ep_end_year <-
-  aut_pre_ep_year <- dem_pre_ep_year <- episode_id  <- NULL
+  dem_ep_start_year <- dem_ep_end_year <- aut_pre_ep_year <-
+  dem_pre_ep_year <- episode_id <- countries <- NULL
 
   if(length(country) > 0) {
     eps_year <- eps %>%
       filter(country_name == country, between(year, min(years), max(years))) %>%
       filter(dem_ep == 1 | aut_ep == 1) %>%
-      mutate(overlap_eps = ifelse(!is.na(aut_ep_id) & !is.na(dem_ep_id), "overlap", NA)) %>%
+      mutate(overlap_eps = ifelse(!is.na(aut_ep_id) & !is.na(dem_ep_id), "overlaps", NA)) %>%
       pivot_longer(cols = c(aut_ep_id, dem_ep_id, overlap_eps), names_to = "ep_type", values_to = "episode") %>%
       select(country_name, country_text_id, year, v2x_polyarchy, ep_type, episode,
              aut_ep_start_year, aut_ep_end_year, dem_ep_start_year, dem_ep_end_year,
              aut_pre_ep_year, dem_pre_ep_year) %>%
       filter((ep_type == "dem_ep_id" & dem_pre_ep_year == 0) |
              (ep_type == "aut_ep_id" & aut_pre_ep_year == 0) |
-              ep_type == "overlap" & aut_pre_ep_year == 0 & dem_pre_ep_year == 0) %>%
+              ep_type == "overlaps" & aut_pre_ep_year == 0 & dem_pre_ep_year == 0) %>%
       drop_na(episode) %>%
       group_by(year) %>%
       mutate(overlap_eps = n(),
@@ -109,9 +109,9 @@ year <- country_name <- dem_ep <- aut_ep <- overlap_eps <- country_text_id <- v2
  p <-   ggplot2::ggplot() +
           geom_line(data = eps_year, aes(group = episode_id, color = episode_id, linetype = ep_type,x = year, y = v2x_polyarchy)) +
           geom_line(data = polyarchy, aes(x = year, y = v2x_polyarchy), alpha = 0.3) +
-          scale_colour_grey(breaks = levels(factor(eps_year$episode_id[eps_year$episode_id!="overlap"])),
+          scale_colour_grey(breaks = levels(factor(eps_year$episode_id[eps_year$episode_id!="overlaps"])),
                         name = "Episode", start = 0.01, end = 0.01) +
-          scale_linetype_manual(name = "Episode type", breaks = c("aut_ep_id", "dem_ep_id", "overlap"),
+          scale_linetype_manual(name = "Episode type", breaks = c("aut_ep_id", "dem_ep_id", "overlaps"),
                      labels = c("Autocratization", "Democratization", "Overlap"),
                      values = c("dashed", "dotted", "solid")) +
           scale_x_continuous(breaks = seq(round(min(years) / 10) * 10, round(max(years) / 10) * 10, 10)) +
