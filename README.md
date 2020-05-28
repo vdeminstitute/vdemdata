@@ -39,6 +39,12 @@ This package contains the most recent V-Dem dataset (v10) and provides some addi
 install.packages("devtools")
 # now, install the vdemdata package directly from GitHub
 devtools::install_github("vdeminstitute/vdemdata")
+
+# NOTE: make sure you have an updated R version (> 3.5) and
+# - since the package is still a development version - 
+# an updated version of xcode (Mac), rtools (Windows), r-base-dev (Linux)
+# installed. If you have troubles with the installation 
+# write to the package maintainer seraphine.maerz@v-dem.net
 ```
 
 
