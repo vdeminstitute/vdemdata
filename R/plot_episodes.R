@@ -71,12 +71,17 @@ plot_episodes <- function(abs = T,
   if(length(country) > 1)
     stop("Error: More than one country selected")
 
+year <- country_name <- dem_ep <- aut_ep <- overlap_eps <- country_text_id <- v2x_polyarchy <-
+  ep_type <- episode <- vdem <- aut_ep_start_year <- aut_ep_end_year <-
+  dem_ep_start_year <- dem_ep_end_year <-
+  aut_pre_ep_year <- dem_pre_ep_year <- episode_id  <- NULL
+
   if(length(country) > 0) {
     eps_year <- eps %>%
       filter(country_name == country, between(year, min(years), max(years))) %>%
       filter(dem_ep == 1 | aut_ep == 1) %>%
-      mutate(overlap = ifelse(!is.na(aut_ep_id) & !is.na(dem_ep_id), "overlap", NA)) %>%
-      pivot_longer(cols = c(aut_ep_id, dem_ep_id, overlap), names_to = "ep_type", values_to = "episode") %>%
+      mutate(overlap_eps = ifelse(!is.na(aut_ep_id) & !is.na(dem_ep_id), "overlap", NA)) %>%
+      pivot_longer(cols = c(aut_ep_id, dem_ep_id, overlap_eps), names_to = "ep_type", values_to = "episode") %>%
       select(country_name, country_text_id, year, v2x_polyarchy, ep_type, episode,
              aut_ep_start_year, aut_ep_end_year, dem_ep_start_year, dem_ep_end_year,
              aut_pre_ep_year, dem_pre_ep_year) %>%
@@ -85,7 +90,7 @@ plot_episodes <- function(abs = T,
               ep_type == "overlap" & aut_pre_ep_year == 0 & dem_pre_ep_year == 0) %>%
       drop_na(episode) %>%
       group_by(year) %>%
-      mutate(overlap = n(),
+      mutate(overlap_eps = n(),
              episode_id = ifelse(ep_type == "aut_ep_id", str_sub(episode, 5, 13), episode),
              episode_id = ifelse(ep_type == "dem_ep_id", str_sub(episode, 5, 13), episode_id),
              episode_id = ifelse(ep_type == "aut_ep_id", paste0("AUT:", episode_id), episode_id),
@@ -97,7 +102,7 @@ plot_episodes <- function(abs = T,
       ungroup() %>%
       select(year, v2x_polyarchy)
 
-    if(max(eps_year$overlap) > 1) {
+    if(max(eps_year$overlap_eps) > 1) {
       print("Warning: Some episodes overlap!")
     }
 
