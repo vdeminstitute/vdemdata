@@ -1,6 +1,6 @@
-#' Plot autocratization and democratization episodes over time.
+#' Plot Episodes of Regime Transformation (ERT) over time.
 #'
-#' `plot_episodes` plots democratization and autocratization episodes over time. It shows either
+#' `plot_episodes` plots Episodes of Regime Transformation (ERT) over time. It shows either
 #' the global number/share of countries undergoing democratization and autocratization or
 #' episodes for an individual country.
 #'
