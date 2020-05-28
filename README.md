@@ -19,7 +19,7 @@ This package contains the most recent V-Dem dataset (v10) and provides some addi
 
 #### Graphics: ####
 * `plot_indicator`: Plot V-Dem indicators for exploratory data analysis.
-* `plot_episode`: Plot democratization and autocratization episodes over time.
+* `plot_episode`: Plot Episodes of Regime Transitions (ERT) over time.
 
 #### Data on Episodes of Regime Transitions (ERT, for details see also the [ERT Codebook](https://github.com/vdeminstitute/vdemdata/blob/master/inst/ERT_codebook.pdf)): ####
 * NOTE: for non-R users we provide [the ERT dataset here as csv. file](https://github.com/vdeminstitute/ERT) - however, we recommend using our vdemdata R package since one huge advantage of the package is that it allows to flexibly set parameters for generating the episodes.
