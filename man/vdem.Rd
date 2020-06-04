@@ -4,7 +4,9 @@
 \name{vdem}
 \alias{vdem}
 \title{V-Dem data}
-\format{A data frame with 27013 observations and 4108 variables.}
+\format{
+A data frame with 27013 observations and 4108 variables.
+}
 \source{
 https://www.v-dem.net/en/data/data-version-10/
 }
