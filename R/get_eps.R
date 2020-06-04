@@ -45,9 +45,9 @@
 #'
 #' @import dplyr
 #' @import Rcpp
-#' @import hablar
+#' @importFrom hablar s
 #' @import tidyr
-#' @import plm
+#' @importFrom plm make.pconsecutive
 #' @export
 #'
 #' @examples

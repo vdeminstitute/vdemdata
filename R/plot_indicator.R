@@ -23,7 +23,7 @@
 #' @return The output of this function is a [ggplot2:ggplot()] object with lines and points
 #'  for global averages of the selected indicators or point estimates for selected countries.
 #'
-#' @import ggplot2 stringr tidyr
+#' @import dplyr ggplot2 tidyr tidyselect
 #'
 #' @examples
 #' \dontrun{
@@ -40,10 +40,17 @@
 #'                      min_year = 1940, max_year = 2010)
 #' }
 #' @export
-plot_indicator <- function(indicator, countries = NULL, min_year = min(vdemdata::vdem$year), max_year = max(vdemdata::vdem$year), uncertainty = T) {
+plot_indicator <- function(indicator,
+                           countries = NULL,
+                           min_year = min(vdemdata::vdem$year),
+                           max_year = max(vdemdata::vdem$year),
+                           uncertainty = T) {
+
 year <- country_name <- value <- mean_indicator <- vdem <- name <- type <- codelow <- codehigh <- NULL
-  # Specify sensible colors for plotted lines
-  colour_palette <- c("#000000", "#E69F00", "#800080", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7", "#800000", "#00FF00")
+
+# Specify sensible colors for plotted lines
+  colour_palette <- c("#1B9E77", "#D95F02", "#7570B3", "#E7298A",
+                      "#66A61E", "#E6AB02", "#A6761D", "#666666")
 
   # If no countries are selected, compute and plot the global average for the selected indicators
   if (is.null(countries) == T) {
@@ -57,17 +64,17 @@ year <- country_name <- value <- mean_indicator <- vdem <- name <- type <- codel
 
     ggplot2::ggplot(data,
                     aes(x = year, y = mean_indicator, fill = indicator, shape = indicator)) +
-        geom_line() + geom_point() + xlab("") +
+        geom_line() + geom_point(size = 1) + xlab("") +
         ylab(ifelse(length(indicator) == 1, indicator, "")) +
         scale_x_continuous(breaks = seq(round(min_year / 10) * 10, round(max_year / 10) * 10, 10)) +
         scale_shape_manual("Indicator", values = rep(0:length(indicator)), labels = indicator) +
-        scale_fill_manual("Indicator", values = rep(0:length(indicator)), labels = indicator) +
+        scale_fill_manual("Indicator", values = rep("black", length(indicator)), labels = indicator) +
         theme_bw()
   }
   # If uncertainty is turned off or indicators do not have uncertainty estimates plot those variables
-  else if (isFALSE(uncertainty) == T | length(intersect(colnames(vdem), paste(indicator, "_codehigh", sep = ""))) < 1) {
+  else if (isTRUE(uncertainty) == F | length(intersect(colnames(vdemdata::vdem), paste(indicator, "_codehigh", sep = ""))) < 1) {
     data <- vdemdata::vdem %>%
-      dplyr::select(indicator = indicator, year, country_name) %>%
+      dplyr::select(indicator = all_of(indicator), year, country_name) %>%
       dplyr::filter(year >= min_year & year <= max_year) %>%
       dplyr::filter(country_name %in% countries) %>%
       dplyr::arrange(country_name) %>%
@@ -76,7 +83,7 @@ year <- country_name <- value <- mean_indicator <- vdem <- name <- type <- codel
 
     ggplot2::ggplot(data,
                     aes(x = year, y = value, shape = indicator, color = country_name)) +
-        geom_line(alpha = 0.80) + geom_point() + xlab("") +
+        geom_line(alpha = 0.80) + geom_point(size = 0.75) + xlab("") +
         ylab("") +
         scale_x_continuous(breaks = seq(round(min_year / 10) * 10, round(max_year / 10) * 10, 10)) +
         scale_color_manual(values = colour_palette[seq_len(length(countries))], name = "Country",
@@ -105,7 +112,7 @@ year <- country_name <- value <- mean_indicator <- vdem <- name <- type <- codel
 
     ggplot2::ggplot(data,
                     aes(x = year, y = value, shape = indicator, color = country_name)) +
-        geom_line(alpha = .80) + geom_point() +
+        geom_line(alpha = .80) + geom_point(size = 0.75) +
         geom_ribbon(aes(x = year, ymin = codelow,
                         ymax = codehigh,
                         linetype = NA, fill = country_name), alpha = .25) + xlab("") +
