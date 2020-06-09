@@ -16,6 +16,7 @@ This package contains the most recent V-Dem dataset (v10) and provides some addi
 * `vdem`: Load the dataset (for non-R users, please access the V-Dem dataset [here](https://www.v-dem.net/en/data/data-version-10/))
 * `var_info`: Print to the console basic information on a specific variable as given in the codebook
 * `find_var`: Search variables via keywords
+* `fillvars`: Fill election-specific variables 
 
 #### Graphics: ####
 * `plot_indicator`: Plot V-Dem indicators for exploratory data analysis.
