@@ -22,7 +22,9 @@ Imports:
   ggplot2,
   hablar,
   plm,
-  tidyselect
+  tidyselect,
+  purrr,
+  tibble
 Suggests:
   testthat
 LinkingTo: Rcpp
