@@ -246,7 +246,7 @@ get_eps <- function(data = vdemdata::vdem,
                   dem_ep_start_year = ifelse(dem_ep==1,first(year)+1, NA),
                   # here we code a dummy for the pre-episode year
                   dem_pre_ep_year = ifelse(dem_ep==1, ifelse(year == dplyr::first(year), 1, 0), 0),
-                  # we create a unique identifier for episodes and phases using the country_text_id, start, and end years
+                  # we create a unique identifier for episodes using the country_text_id, start, and end years
                   dem_ep_id = ifelse(dem_ep==1, paste(country_text_id, dem_ep_start_year, dem_ep_end_year, sep = "_"), NA)) %>%
     ungroup() %>%
     # remove the old identifiers we no longer need
@@ -259,21 +259,55 @@ get_eps <- function(data = vdemdata::vdem,
 
     ####### code termination type of democratization episode
 
-    # democratization episodes end when one of three things happens:
-    # 1. the case experiences an annual drop <= year_turn
-    # 2. the case experiences a gradual drop <= cum_turn over the tolerance period (or less)
-    # 3. the case experiences no annual increase = start_incl for the tolerance period (or more)
+    # democratization episodes end when one of five things happens:
+    # 0. the case is censored
+    # 1. stasis: the case experiences no annual increase = start_incl for the tolerance period (or more)
+    # 2. year drop: the case experiences an annual drop <= year_turn
+    # 3. cumulative dro: the case experiences a gradual drop <= cum_turn over the tolerance period (or less)
+    # 4. breakdown: the case experienced a democratic breakdown (only for subtype 1: democratic deepening) or
+    #                reverted to closed authoritarianism (only for subtype 2: liberalizing autocracy)
 
-    # first find the last positive change on EDI equal to the start_incl parameter
-    group_by(dem_ep_id) %>%
+  # first find the last positive change on EDI equal to the start_incl parameter
+    # this will become the new end of episodes at some point, once we clean things up
+  group_by(dem_ep_id) %>%
     dplyr::mutate(last_ch_year = max(hablar::s(ifelse(v2x_polyarchy-dplyr::lag(v2x_polyarchy, n=1)>=start_incl, year, NA))),
                   # here we just replace with NA non-episode years
                   last_ch_year = ifelse(dem_ep==0, NA, last_ch_year)) %>%
+  
+  
+  # here we check to see if the country reverted to a closed autocracy within the episode period (termination type #4)
+  # first lets make sure to group by the country (not the episode!) and arrange by country-year
+  group_by(country_id) %>%
+    arrange(country_id, year) %>%
+    # then we find years where a country moved from higher values on RoW to closed (0)
+    dplyr::mutate(back_closed = ifelse(dplyr::lead(v2x_regime, n=1) == 0 & v2x_regime > 0, year, NA)) %>%
+    # now we need to group by episode to fill the values within episodes
+    ungroup() %>%
+    group_by(dem_ep_id) %>%
+    # here we then find the first time in the episode that a change from another regime to closed autocracy occurs
+    # limits back_closed to episode years, making sure to exclude pre-episode year
+    dplyr::mutate(back_closed = ifelse(dem_ep==1 & year>=dem_ep_start_year, back_closed,NA),  
+                  # finds the first year within the episode where back_closed happens
+                  back_closed = min(hablar::s(back_closed)),
+  # we recode the potential end date for the episode as the year before becoming closed
+  dem_ep_end_year = ifelse(!is.na(back_closed) & dem_ep_end_year>back_closed, back_closed, dem_ep_end_year)) %>%
+  # then we need to update our dem_ep_id with the new end date (we can clean up the other variables later)
+  ungroup() %>%
+  dplyr::mutate(dem_ep_start_year = ifelse(dem_ep==1 & year>dem_ep_end_year, NA, dem_ep_start_year),
+                dem_ep_end_year = ifelse(dem_ep==1 & year>dem_ep_end_year, NA, dem_ep_end_year),
+                dem_ep = ifelse(dem_ep==1 & year>dem_ep_end_year, 0, dem_ep),
+                dem_ep_id = ifelse(dem_ep==1, paste(country_text_id, dem_ep_start_year, dem_ep_end_year, sep = "_"), NA)) %>%
+  # then we can update our last_ch_year variable to reflect the new range of years for the episodes that terminated due to back_closed
+  group_by(dem_ep_id) %>%
+  dplyr::mutate(last_ch_year = max(hablar::s(ifelse(v2x_polyarchy-dplyr::lag(v2x_polyarchy, n=1)>=start_incl, year, NA))),
+                # here we just replace with NA non-episode years
+                last_ch_year = ifelse(dem_ep==0, NA, last_ch_year)) %>%
+  
     # now lets make sure to group by the country (not the episode!) and arrange by country-year
     group_by(country_id) %>%
     arrange(country_id, year)
 
-  # then check to see what happened the after the episode had its last substantive change equal to start_incl
+  # then check to see what happened after the episode had its last substantive change equal to start_incl
   # we start with the yearly drop, aka year_turn
   year_drop <- list()
   # here we loop over the number of years (n) equal to the tolerance period after the last_change_year
@@ -322,22 +356,12 @@ get_eps <- function(data = vdemdata::vdem,
     left_join(tibble::rownames_to_column(stasis, 'newid'), by = 'newid') %>%
     select(-newid) %>%
 
-    # now lets make sure to group by the country (not the episode!) and arrange by country-year
-    group_by(country_id) %>%
-    arrange(country_id, year) %>%
-
-    # now we check to see if the country reverted to a closed autocracy within the episode period
-    dplyr::mutate(back_closed = ifelse(dplyr::lead(v2x_regime, n=1) == 0 & v2x_regime > 0, year, NA)) %>%
-    ungroup() %>%
+  # now we can finally code our termination variable
+    # first we group by episode
     group_by(dem_ep_id) %>%
-    # here we then find the first time in the episode that a change from another regime to closed autocracy occurs
-    dplyr::mutate(back_closed = min(hablar::s(back_closed)),
-                  back_closed = ifelse(is.na(dem_ep_id), NA, back_closed),
-                  # we recode the last change year as the first year the country reverted back to closed autocracy (e.g. Sudan has this happen before last change)
-                  last_ch_year = ifelse(!is.na(back_closed) & last_ch_year>back_closed, back_closed, last_ch_year),
-                  # now we can finally code our termination variable
+    arrange(dem_ep_id, year) %>%
                   # first, lets fill everything in for the episode
-                  stasis = ifelse(dem_ep==1, max(hablar::s(stasis)), NA),
+    dplyr::mutate(stasis = ifelse(dem_ep==1, max(hablar::s(stasis)), NA),
                   year_drop = ifelse(dem_ep==1, max(hablar::s(year_drop)), NA),
                   cum_drop = ifelse(dem_ep==1, max(hablar::s(cum_drop)), NA),
                   # then we can code the termination variable
@@ -359,30 +383,33 @@ get_eps <- function(data = vdemdata::vdem,
                   dem_ep = ifelse(is.na(dem_ep_end_year), 0, dem_ep)) %>%
     ungroup() %>%
     dplyr::mutate(dem_ep_id = ifelse(dem_ep==1, paste(country_text_id, dem_ep_start_year, dem_ep_end_year, sep = "_"), NA)) %>%
-    group_by(dem_ep_id) %>%
+    group_by(country_id) %>%
     arrange(country_id, year) %>%
 
 
-    ##### code the phase and outcome type of episode
+    ##### code the subtype and outcome of episode
 
-    # we code a variable that captures the type or "phase" of democratization, were 1 = "democratic deepening" and 2 = "autocratic liberalization"
+    # we code a variable that captures the subtype of democratization, were 1 = "democratic deepening" and 2 = "autocratic liberalization"
     # note: the year of the democratic transition is included in the autocratic liberalization phase
     dplyr::mutate(sub_dem_ep = ifelse(dem_ep==1 & reg_type==1 & reg_trans!=1, 1, 0),
                   sub_dem_ep = ifelse(dem_ep==1 & (reg_type==0 | (reg_type==1 & reg_trans==1)),
                                       2, sub_dem_ep),
                   sub_dem_ep = ifelse(dem_pre_ep_year==1, dplyr::lead(sub_dem_ep, n=1), sub_dem_ep),
-                  # we code the start and end dates for these phases
-                  sub_dem_ep_start_year = ifelse(dem_ep==1 & year==dem_ep_start_year, dem_ep_start_year, NA),
-                  sub_dem_ep_start_year = ifelse(sub_dem_ep==1 & dplyr::lag(sub_dem_ep==2, n=1), year, sub_dem_ep_start_year),
-                  sub_dem_ep_end_year = ifelse(dem_ep==1 & year==dem_ep_end_year, dem_ep_end_year, NA),
-                  sub_dem_ep_end_year = ifelse(sub_dem_ep==2 & year!=dem_ep_end_year & dem_pre_ep_year==0 &
-                                                 dplyr::lead(sub_dem_ep==1, n=1), year,
-                                               sub_dem_ep_end_year)) %>%
+                  # we code the start and end dates for each subtype
+                                                              # start year of episode
+                  sub_dem_ep_start_year = ifelse(dem_ep==1 & (year==dem_ep_start_year | 
+                                                    # or year the subtype changed
+                                                  (year>dem_ep_start_year & sub_dem_ep != dplyr::lag(sub_dem_ep, n=1))), year, NA), 
+                                                            # end year of episode
+                  sub_dem_ep_end_year = ifelse(dem_ep==1 & (year==dem_ep_end_year | 
+                                                            # or year prior to change in subtype
+                                               (year<dem_ep_end_year & sub_dem_ep != dplyr::lead(sub_dem_ep, n=1))), year, NA)) %>% 
+    ungroup() %>%
+    group_by(dem_ep_id) %>%
+    arrange(dem_ep_id, year) %>%
     tidyr::fill(sub_dem_ep_start_year) %>%
     tidyr::fill(sub_dem_ep_end_year, sub_dem_ep_start_year, .direction="up") %>%
     dplyr::mutate(sub_dem_ep_id = ifelse(dem_ep==1, paste(country_text_id, sub_dem_ep_start_year, sub_dem_ep_end_year, sep = "_"), NA)) %>%
-    ungroup() %>%
-    group_by(dem_ep_id) %>%
     # did a regime change on RoW during the episode produce a genuine democratic transition?
     dplyr::mutate(dem_ep_outcome = ifelse(sub_dem_ep==2 & reg_trans==1 & dem_pre_ep_year==0, 1, NA),
                   # did a regime change on RoW during the episode fail to produce a democratic transition?
@@ -405,7 +432,7 @@ get_eps <- function(data = vdemdata::vdem,
     ungroup() %>%
     group_by(sub_dem_ep_id) %>%
     arrange(country_id, year) %>%
-    # fill for the entire phase of episode
+    # fill for the entire subtype period
     dplyr::mutate(dem_ep_outcome = min(hablar::s(dem_ep_outcome))) %>%
     ungroup() %>%
     group_by(dem_ep_id) %>%
@@ -557,12 +584,13 @@ get_eps <- function(data = vdemdata::vdem,
                   sub_aut_ep = ifelse(aut_ep==1 & reg_type==0 & reg_trans!=-1, 2, sub_aut_ep),
                   sub_aut_ep = ifelse(aut_pre_ep_year==1, dplyr::lead(sub_aut_ep, n=1), sub_aut_ep),
                   # we code the start and end dates for these phases
-                  sub_aut_ep_start_year = ifelse(aut_ep==1 & year==aut_ep_start_year, aut_ep_start_year, NA),
-                  sub_aut_ep_start_year = ifelse(sub_aut_ep==2 & dplyr::lag(sub_aut_ep==1, n=1), year, sub_aut_ep_start_year),
-                  sub_aut_ep_end_year = ifelse(aut_ep==1 & year==aut_ep_end_year, aut_ep_end_year, NA),
-                  sub_aut_ep_end_year = ifelse(sub_aut_ep==1 & year!=aut_ep_end_year & aut_pre_ep_year==0 &
-                                                 dplyr::lead(sub_aut_ep==2, n=1), year,
-                                               sub_aut_ep_end_year)) %>%
+                  sub_aut_ep_start_year = ifelse(aut_ep==1 & (year==aut_ep_start_year | 
+                                                                # or year the subtype changed
+                                                                (year>aut_ep_start_year & sub_aut_ep != dplyr::lag(sub_aut_ep, n=1))), year, NA), 
+                  # end year of episode
+                  sub_aut_ep_end_year = ifelse(aut_ep==1 & (year==aut_ep_end_year | 
+                                                              # or year prior to change in subtype
+                                                              (year<aut_ep_end_year & sub_aut_ep != dplyr::lead(sub_aut_ep, n=1))), year, NA)) %>%
     tidyr::fill(sub_aut_ep_start_year) %>%
     tidyr::fill(sub_aut_ep_end_year, sub_aut_ep_start_year, .direction="up") %>%
     dplyr::mutate(sub_aut_ep_id = ifelse(aut_ep==1, paste(country_text_id, sub_aut_ep_start_year, sub_aut_ep_end_year, sep = "_"), NA)) %>%

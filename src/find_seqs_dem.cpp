@@ -22,13 +22,19 @@ using namespace std;
 //[[Rcpp::export]]
 NumericVector find_seqs_dem(NumericVector v,
                             NumericVector r,
-                            double start_incl = 0,
-                            double year_turn = 0,
-                            double cum_turn = 0,
-                            int tolerance = 0) {
+                            double start_incl = 0.01,
+                            double year_turn = -0.03,
+                            double cum_turn = -0.1,
+                            int tolerance = 5) {
+  if (v.size() != r.size())
+    stop("Mismatched vector lengths");
 
-  // Creating a vector out of length v and taking the first difference
-  // (any anual change) of v and r as d and r2
+  if (start_incl < 0 || year_turn > 0 || cum_turn > 0)
+    stop("start_incl must be positive and year_turn and cum_turn negative");
+
+  if (tolerance <= 0)
+    stop("Tolerance threshold must be greater than zero");
+
   NumericVector out = NumericVector(v.size(), NumericVector::get_na()),
     d = diff(v), r2 = diff(r);
 

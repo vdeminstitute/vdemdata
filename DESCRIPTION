@@ -15,13 +15,16 @@ Description: This package contains the most recent full V-Dem data set
              offers some additional functions to work with vdem data.
 Depends: R (>= 3.5.0)
 Imports:
+  Rcpp,
   dplyr,
   tidyr,
-  Rcpp,
-  ggplot2,
   stringr,
+  ggplot2,
   hablar,
-  plm
+  plm,
+  tidyselect,
+  purrr,
+  tibble
 Suggests:
   testthat
 LinkingTo: Rcpp

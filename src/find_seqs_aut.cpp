@@ -22,21 +22,30 @@ using namespace std;
 //[[Rcpp::export]]
 NumericVector find_seqs_aut(NumericVector v,
                             NumericVector r,
-                            double start_incl = 0,
-                            double year_turn = 0,
-                            double cum_turn = 0,
-                            int tolerance = 0) {
+                            double start_incl = -0.01,
+                            double year_turn = 0.03,
+                            double cum_turn = 0.1,
+                            int tolerance = 5) {
 
-  // Creating a vector out of length v and taking the first difference
-  // (any anual change) of v and r as d and r2
+  if (v.size() != r.size())
+    stop("Mismatched vector lengths");
+
+  if (start_incl > 0 || year_turn < 0 || cum_turn < 0)
+    stop("start_incl must be negative and year_turn and cum_turn positive");
+
+  if (tolerance <= 0)
+    stop("Tolerance threshold must be greater than zero");
+
   NumericVector out = NumericVector(v.size(), NumericVector::get_na()),
     d = diff(v), r2 = diff(r);
 
   // Setting up the objects that keep track of the country-specific
   // episode number (count), the number of years of stasis there has
-  // been (tolerance_count) and the cumulative change during the time of
-  // stasis (NOTE: this is not cum_incl, since it looks at stasis years
-  // only - we call it "change" and set it to 0, since there should be -
+  // been (tolerance_count) and the cumulative change during the time
+  // of stasis
+  //
+  // (NOTE: this is not cum_incl, since it looks at stasis years only
+  // - we call it "change" and set it to 0, since there should be -
   // per definitionem - no change during stasis) as well as the length
   // of the country-unit time series (d_len).
   queue<int> q;
@@ -80,7 +89,7 @@ NumericVector find_seqs_aut(NumericVector v,
     //
     // NOTE: also here mirrored!
     if (i == d_len - 1 || tolerance_count == tolerance || NumericVector::is_na(d[i]) ||
-        d[i] > year_turn|| change > cum_turn || (r2[i] < 0 && r[i+1] == 3)) {
+        d[i] > year_turn|| change > cum_turn || (r2[i] > 0 && r[i+1] == 3)) {
       int head = q.front(), tail;
 
       // Include stasis period

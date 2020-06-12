@@ -1,5 +1,5 @@
 
-An R package to load, explore and work with the most recent V-Dem (Varieties of Democracy) dataset.
+An R package to load, explore and work with the most recent V-Dem (Varieties of Democracy) dataset (v10).
 
 ## V-Dem: Global Standards, Local Knowledge ##
 
@@ -16,9 +16,11 @@ This package contains the most recent V-Dem dataset (v10) and provides some addi
 * `vdem`: Load the dataset (for non-R users, please access the V-Dem dataset [here](https://www.v-dem.net/en/data/data-version-10/))
 * `var_info`: Print to the console basic information on a specific variable as given in the codebook
 * `find_var`: Search variables via keywords
+* `fill_vars`: Fill election-specific variables 
 
 #### Graphics: ####
 * `plot_indicator`: Plot V-Dem indicators for exploratory data analysis.
+* `plot_episode`: Plot Episodes of Regime Transitions (ERT) over time.
 
 #### Data on Episodes of Regime Transitions (ERT, for details see also the [ERT Codebook](https://github.com/vdeminstitute/vdemdata/blob/master/inst/ERT_codebook.pdf)): ####
 * NOTE: for non-R users we provide [the ERT dataset here as csv. file](https://github.com/vdeminstitute/ERT) - however, we recommend using our vdemdata R package since one huge advantage of the package is that it allows to flexibly set parameters for generating the episodes.
@@ -38,6 +40,12 @@ This package contains the most recent V-Dem dataset (v10) and provides some addi
 install.packages("devtools")
 # now, install the vdemdata package directly from GitHub
 devtools::install_github("vdeminstitute/vdemdata")
+
+# NOTE: make sure you have an updated R version (> 3.5) and
+# - since the package is still a development version - 
+# an updated version of xcode (Mac), rtools (Windows), r-base-dev (Linux)
+# installed. If you have troubles with the installation 
+# write to the package maintainer seraphine.maerz@v-dem.net
 ```
 
 
