@@ -22,11 +22,12 @@ using namespace std;
 //[[Rcpp::export]]
 NumericVector find_seqs_dem(NumericVector v,
                             NumericVector r,
+                            NumericVector t,
                             double start_incl = 0.01,
                             double year_turn = -0.03,
                             double cum_turn = -0.1,
                             int tolerance = 5) {
-  if (v.size() != r.size())
+  if (v.size() != r.size() || v.size() != t.size())
     stop("Mismatched vector lengths");
 
   if (start_incl < 0 || year_turn > 0 || cum_turn > 0)
@@ -83,7 +84,8 @@ NumericVector find_seqs_dem(NumericVector v,
     //  - Decrease < cum_turn
     //  - Revert to v2x_regime == 0 (return to closed autocracy)
     if (i == d_len - 1 || tolerance_count == tolerance || NumericVector::is_na(d[i]) ||
-        d[i] < year_turn|| change < cum_turn || (r2[i] < 0 && r[i+1] == 0)) {
+        d[i] < year_turn|| change < cum_turn || (r2[i] < 0 && r[i+1] == 0) ||
+        t[i+1] == -1) {
       int head = q.front(), tail;
 
       // Include stasis period
