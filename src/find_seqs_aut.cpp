@@ -22,12 +22,13 @@ using namespace std;
 //[[Rcpp::export]]
 NumericVector find_seqs_aut(NumericVector v,
                             NumericVector r,
+                            NumericVector t,
                             double start_incl = -0.01,
                             double year_turn = 0.03,
                             double cum_turn = 0.1,
                             int tolerance = 5) {
 
-  if (v.size() != r.size())
+  if (v.size() != r.size() || v.size() != t.size())
     stop("Mismatched vector lengths");
 
   if (start_incl > 0 || year_turn < 0 || cum_turn < 0)
@@ -89,7 +90,8 @@ NumericVector find_seqs_aut(NumericVector v,
     //
     // NOTE: also here mirrored!
     if (i == d_len - 1 || tolerance_count == tolerance || NumericVector::is_na(d[i]) ||
-        d[i] > year_turn|| change > cum_turn || (r2[i] > 0 && r[i+1] == 3)) {
+        d[i] > year_turn|| change > cum_turn || (r2[i] > 0 && r[i+1] == 3) ||
+        t[i+1] == 1) {
       int head = q.front(), tail;
 
       // Include stasis period
