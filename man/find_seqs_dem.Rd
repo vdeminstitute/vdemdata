@@ -7,6 +7,7 @@
 find_seqs_dem(
   v,
   r,
+  t,
   start_incl = 0.01,
   year_turn = -0.03,
   cum_turn = -0.1,

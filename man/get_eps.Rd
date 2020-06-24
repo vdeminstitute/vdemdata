@@ -10,8 +10,7 @@ get_eps(
   cum_incl = 0.1,
   year_turn = 0.03,
   cum_turn = 0.1,
-  tolerance = 5,
-  output = "df"
+  tolerance = 5
 )
 }
 \arguments{
@@ -33,8 +32,6 @@ By default a cumulative change of -0.1 on the EDI (Vdem's Electoral Democcracy I
 
 \item{tolerance}{A threshold to specify the number of "stasis" observations (\emph{i.e.}, observations neither increasing
 or decreasing significantly) permitted before stopping a sequence. By default 5 years.}
-
-\item{output}{The default output is a data frame. For details see the ERT codebook.}
 }
 \value{
 A data frame specifying episodes of regime transformation in the most recent Vdem data set.
