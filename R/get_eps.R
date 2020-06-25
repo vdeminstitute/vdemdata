@@ -69,7 +69,6 @@ get_eps <- function(data = vdemdata::vdem,
 
   # selecting the variables we need to construct the episodes dataframe #
 
-
   full.df <- data %>%
     dplyr::select(country_name, country_id, country_text_id, year,
                   v2x_polyarchy, codingstart, codingend, matches("v2x_polyarchy", ignore.case = FALSE),
@@ -260,9 +259,9 @@ get_eps <- function(data = vdemdata::vdem,
     # 0. the case is censored
     # 1. stasis: the case experiences no annual increase = start_incl for the tolerance period (or more)
     # 2. year drop: the case experiences an annual drop <= year_turn
-    # 3. cumulative dro: the case experiences a gradual drop <= cum_turn over the tolerance period (or less)
-    # 4. breakdown: the case experienced a democratic breakdown (only for subtype 1: democratic deepening) or
-    #                reverted to closed authoritarianism (only for subtype 2: liberalizing autocracy)
+    # 3. cumulative drop: the case experiences a gradual drop <= cum_turn over the tolerance period (or less)
+    # 4. breakdown: the case experienced a democratic breakdown (really only applies for subtype 1: democratic deepening) or
+    #                reverted to closed authoritarianism (applies to all cases, but reg_trans should capture for subtype 1)
 
   # first find the last positive change on EDI equal to the start_incl parameter
     # this will become the new end of episodes at some point, once we clean things up
@@ -270,36 +269,38 @@ get_eps <- function(data = vdemdata::vdem,
     dplyr::mutate(last_ch_year = max(hablar::s(ifelse(v2x_polyarchy-dplyr::lag(v2x_polyarchy, n=1)>=start_incl, year, NA))),
                   # here we just replace with NA non-episode years
                   last_ch_year = ifelse(dem_ep==0, NA, last_ch_year)) %>%
-  
-  
-  # here we check to see if the country reverted to a closed autocracy within the episode period (termination type #4)
+
+
+  # here we check for breakdown within the episode period (termination type #4)
   # first lets make sure to group by the country (not the episode!) and arrange by country-year
   dplyr::group_by(country_id) %>%
     dplyr::arrange(country_id, year) %>%
     # then we find years where a country moved from higher values on RoW to closed (0)
-    dplyr::mutate(back_closed = ifelse(dplyr::lead(v2x_regime, n=1) == 0 & v2x_regime > 0, year, NA)) %>%
+    dplyr::mutate(breakdown = ifelse((dplyr::lead(v2x_regime, n=1) == 0 & v2x_regime > 0) |
+                                      # and the years where the country experienced a breakdown on reg_trans
+                                       dplyr::lead(reg_trans==-1), year, NA)) %>%
     # now we need to group by episode to fill the values within episodes
     dplyr::ungroup() %>%
     dplyr::group_by(dem_ep_id) %>%
-    # here we then find the first time in the episode that a change from another regime to closed autocracy occurs
-    # limits back_closed to episode years, making sure to exclude pre-episode year
-    dplyr::mutate(back_closed = ifelse(dem_ep==1 & year>=dem_ep_start_year, back_closed,NA),  
+    # here we then find the first time in the episode that a breakdown occurs
+    # limits breakdown to episode years, making sure to exclude pre-episode year
+    dplyr::mutate(breakdown = ifelse(dem_ep==1 & year>=dem_ep_start_year, breakdown,NA),
                   # finds the first year within the episode where back_closed happens
-                  back_closed = min(hablar::s(back_closed)),
-  # we recode the potential end date for the episode as the year before becoming closed
-  dem_ep_end_year = ifelse(!is.na(back_closed) & dem_ep_end_year>back_closed, back_closed, dem_ep_end_year)) %>%
+                  breakdown = min(hablar::s(breakdown)),
+  # we recode the potential end date for the episode as the year before breakdown
+                  dem_ep_end_year = ifelse(!is.na(breakdown) & dem_ep_end_year>breakdown, breakdown, dem_ep_end_year)) %>%
   # then we need to update our dem_ep_id with the new end date (we can clean up the other variables later)
   dplyr::ungroup() %>%
   dplyr::mutate(dem_ep_start_year = ifelse(dem_ep==1 & year>dem_ep_end_year, NA, dem_ep_start_year),
                 dem_ep_end_year = ifelse(dem_ep==1 & year>dem_ep_end_year, NA, dem_ep_end_year),
                 dem_ep = ifelse(dem_ep==1 & year>dem_ep_end_year, 0, dem_ep),
                 dem_ep_id = ifelse(dem_ep==1, paste(country_text_id, dem_ep_start_year, dem_ep_end_year, sep = "_"), NA)) %>%
-  # then we can update our last_ch_year variable to reflect the new range of years for the episodes that terminated due to back_closed
+  # then we can update our last_ch_year variable to reflect the new range of years for the episodes that terminated due to breakdown
   dplyr::group_by(dem_ep_id) %>%
   dplyr::mutate(last_ch_year = max(hablar::s(ifelse(v2x_polyarchy-dplyr::lag(v2x_polyarchy, n=1)>=start_incl, year, NA))),
                 # here we just replace with NA non-episode years
                 last_ch_year = ifelse(dem_ep==0, NA, last_ch_year)) %>%
-  
+
     # now lets make sure to group by the country (not the episode!) and arrange by country-year
     dplyr::group_by(country_id) %>%
     dplyr::arrange(country_id, year)
@@ -363,10 +364,10 @@ get_eps <- function(data = vdemdata::vdem,
                   cum_drop = ifelse(dem_ep==1, max(hablar::s(cum_drop)), NA),
                   # then we can code the termination variable
                   dem_ep_termination = ifelse(dem_ep==1 & !is.na(stasis) & is.na(year_drop) & is.na(cum_drop)
-                                              & is.na(back_closed), 1, NA),
-                  dem_ep_termination = ifelse(dem_ep==1 & !is.na(year_drop) & is.na(back_closed), 2, dem_ep_termination),
-                  dem_ep_termination = ifelse(dem_ep==1 & !is.na(cum_drop) & is.na(year_drop) & is.na(back_closed), 3, dem_ep_termination),
-                  dem_ep_termination = ifelse(dem_ep==1 & !is.na(back_closed), 4, dem_ep_termination),
+                                              & is.na(breakdown), 1, NA),
+                  dem_ep_termination = ifelse(dem_ep==1 & !is.na(year_drop) & is.na(breakdown), 2, dem_ep_termination),
+                  dem_ep_termination = ifelse(dem_ep==1 & !is.na(cum_drop) & is.na(year_drop) & is.na(breakdown), 3, dem_ep_termination),
+                  dem_ep_termination = ifelse(dem_ep==1 & !is.na(breakdown), 4, dem_ep_termination),
                   dem_ep_termination = ifelse(dem_ep==1 & dem_ep_censored==1 & is.na(dem_ep_termination), 0, dem_ep_termination),
                   # now we can clean up the other variables to reflect the true end of the episodes that are not censored
                   # first, let's fix the censored variable
@@ -394,13 +395,13 @@ get_eps <- function(data = vdemdata::vdem,
                   sub_dem_ep = ifelse(dem_pre_ep_year==1, dplyr::lead(sub_dem_ep, n=1), sub_dem_ep),
                   # we code the start and end dates for each subtype
                                                               # start year of episode
-                  sub_dem_ep_start_year = ifelse(dem_ep==1 & (year==dem_ep_start_year | 
+                  sub_dem_ep_start_year = ifelse(dem_ep==1 & (year==dem_ep_start_year |
                                                     # or year the subtype changed
-                                                  (year>dem_ep_start_year & sub_dem_ep != dplyr::lag(sub_dem_ep, n=1))), year, NA), 
+                                                  (year>dem_ep_start_year & sub_dem_ep != dplyr::lag(sub_dem_ep, n=1))), year, NA),
                                                             # end year of episode
-                  sub_dem_ep_end_year = ifelse(dem_ep==1 & (year==dem_ep_end_year | 
+                  sub_dem_ep_end_year = ifelse(dem_ep==1 & (year==dem_ep_end_year |
                                                             # or year prior to change in subtype
-                                               (year<dem_ep_end_year & sub_dem_ep != dplyr::lead(sub_dem_ep, n=1))), year, NA)) %>% 
+                                               (year<dem_ep_end_year & sub_dem_ep != dplyr::lead(sub_dem_ep, n=1))), year, NA)) %>%
     dplyr::ungroup() %>%
     dplyr::group_by(dem_ep_id) %>%
     dplyr::arrange(dem_ep_id, year) %>%
@@ -480,10 +481,11 @@ get_eps <- function(data = vdemdata::vdem,
 
     ####### code termination type of autocratization episode
 
-    # autocrtization episodes end when one of three things happens:
+    # autocrtization episodes end when one of four things happens:
     # 1. the case experiences an annual increase >= year_turn
     # 2. the case experiences a gradual increase >= cum_turn over the tolerance period (or less)
     # 3. the case experiences no annual decrease = start_incl for the tolerance period (or more)
+    # 4. the case experiences a democratic transition (really only applies for autocratic regression (this is unobserved w/ defaults))
 
     # first find the last negative change on EDI equal to the start_incl parameter
     group_by(aut_ep_id) %>%
@@ -492,7 +494,35 @@ get_eps <- function(data = vdemdata::vdem,
                   last_ch_year = ifelse(aut_ep==0, NA, last_ch_year)) %>%
     # now lets make sure to group by the country (not the episode!) and arrange by country-year
     group_by(country_id) %>%
-    arrange(country_id, year)
+    arrange(country_id, year) %>%
+    # then we find years where a country moved experienced a democratic transition
+    dplyr::mutate(demtrans = ifelse(dplyr::lead(reg_trans==1), year, NA)) %>%
+    # now we need to group by episode to fill the values within episodes
+    dplyr::ungroup() %>%
+    dplyr::group_by(aut_ep_id) %>%
+    # here we then find the first time in the episode that a demtrans occurs
+    # limits demtrans to episode years, making sure to exclude pre-episode year
+    dplyr::mutate(demtrans = ifelse(aut_ep==1 & year>=aut_ep_start_year, demtrans,NA),
+                  # finds the first year within the episode where demtrans happens
+                  demtrans = min(hablar::s(demtrans)),
+                  # we recode the potential end date for the episode as the year before demtrans
+                  aut_ep_end_year = ifelse(!is.na(demtrans) & aut_ep_end_year>demtrans, demtrans, aut_ep_end_year)) %>%
+    # then we need to update our aut_ep_id with the new end date (we can clean up the other variables later)
+    dplyr::ungroup() %>%
+    dplyr::mutate(aut_ep_start_year = ifelse(aut_ep==1 & year>aut_ep_end_year, NA, aut_ep_start_year),
+                  aut_ep_end_year = ifelse(aut_ep==1 & year>aut_ep_end_year, NA, aut_ep_end_year),
+                  aut_ep = ifelse(aut_ep==1 & year>aut_ep_end_year, 0, aut_ep),
+                  aut_ep_id = ifelse(aut_ep==1, paste(country_text_id, aut_ep_start_year, aut_ep_end_year, sep = "_"), NA)) %>%
+    # then we can update our last_ch_year variable to reflect the new range of years for the episodes that terminated due to demtrans
+    dplyr::group_by(aut_ep_id) %>%
+    dplyr::mutate(last_ch_year = max(hablar::s(ifelse(v2x_polyarchy-dplyr::lag(v2x_polyarchy, n=1)<=start_incl*-1, year, NA))),
+                    # here we just replace with NA non-episode years
+                    last_ch_year = ifelse(aut_ep==0, NA, last_ch_year)) %>%
+
+    # now lets make sure to group by the country (not the episode!) and arrange by country-year
+    dplyr::group_by(country_id) %>%
+    dplyr::arrange(country_id, year)
+
 
   #### then check to see what happened the after the episode had its last substantive change equal to start_incl
 
@@ -547,16 +577,18 @@ get_eps <- function(data = vdemdata::vdem,
     # now lets make sure to group by the autocratization episode and arrange by country-year
     ungroup() %>%
     group_by(aut_ep_id) %>%
+
     # now we can finally code our termination variable
     # first, lets fill everything in for the episode
     dplyr::mutate(stasis = ifelse(aut_ep==1, max(hablar::s(stasis)), NA),
                   year_incr = ifelse(aut_ep==1, max(hablar::s(year_incr)), NA),
                   cum_incr = ifelse(aut_ep==1, max(hablar::s(cum_incr)), NA),
                   # then we can code the termination variable
-                  aut_ep_termination = ifelse(aut_ep==1 & !is.na(stasis) & is.na(year_incr) & is.na(cum_incr),
-                                              1, NA),
-                  aut_ep_termination = ifelse(aut_ep==1 & !is.na(year_incr), 2, aut_ep_termination),
-                  aut_ep_termination = ifelse(aut_ep==1 & !is.na(cum_incr) & is.na(year_incr), 3, aut_ep_termination),
+                  aut_ep_termination = ifelse(aut_ep==1 & !is.na(stasis) & is.na(year_incr) & is.na(cum_incr)
+                                             & is.na(demtrans), 1, NA),
+                  aut_ep_termination = ifelse(aut_ep==1 & !is.na(year_incr) & is.na(demtrans), 2, aut_ep_termination),
+                  aut_ep_termination = ifelse(aut_ep==1 & !is.na(cum_incr) & is.na(year_incr) & is.na(demtrans), 3, aut_ep_termination),
+                  aut_ep_termination = ifelse(aut_ep==1 & !is.na(demtrans), 4, aut_ep_termination),
                   aut_ep_termination = ifelse(aut_ep==1 & aut_ep_censored==1 & is.na(aut_ep_termination), 0, aut_ep_termination),
                   # now we can clean up the other variables to reflect the true end of the episodes that are not censored
                   # first, let's fix the censored variable
@@ -581,11 +613,11 @@ get_eps <- function(data = vdemdata::vdem,
                   sub_aut_ep = ifelse(aut_ep==1 & reg_type==0 & reg_trans!=-1, 2, sub_aut_ep),
                   sub_aut_ep = ifelse(aut_pre_ep_year==1, dplyr::lead(sub_aut_ep, n=1), sub_aut_ep),
                   # we code the start and end dates for these phases
-                  sub_aut_ep_start_year = ifelse(aut_ep==1 & (year==aut_ep_start_year | 
+                  sub_aut_ep_start_year = ifelse(aut_ep==1 & (year==aut_ep_start_year |
                                                                 # or year the subtype changed
-                                                                (year>aut_ep_start_year & sub_aut_ep != dplyr::lag(sub_aut_ep, n=1))), year, NA), 
+                                                                (year>aut_ep_start_year & sub_aut_ep != dplyr::lag(sub_aut_ep, n=1))), year, NA),
                   # end year of episode
-                  sub_aut_ep_end_year = ifelse(aut_ep==1 & (year==aut_ep_end_year | 
+                  sub_aut_ep_end_year = ifelse(aut_ep==1 & (year==aut_ep_end_year |
                                                               # or year prior to change in subtype
                                                               (year<aut_ep_end_year & sub_aut_ep != dplyr::lead(sub_aut_ep, n=1))), year, NA)) %>%
     tidyr::fill(sub_aut_ep_start_year) %>%
