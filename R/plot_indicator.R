@@ -49,7 +49,7 @@ plot_indicator <- function(indicator,
 year <- country_name <- value <- mean_indicator <- vdem <- name <- type <- codelow <- codehigh <- NULL
 
 # Specify sensible colors for plotted lines
-  colour_palette <- c("#1B9E77", "#D95F02", "#7570B3", "#E7298A",
+  colour_palette <- c("#000000", "#1B9E77", "#D95F02", "#7570B3", "#E7298A",
                       "#66A61E", "#E6AB02", "#A6761D", "#666666")
 
   # If no countries are selected, compute and plot the global average for the selected indicators
@@ -67,8 +67,8 @@ year <- country_name <- value <- mean_indicator <- vdem <- name <- type <- codel
         geom_line() + geom_point(size = 1) + xlab("") +
         ylab(ifelse(length(indicator) == 1, indicator, "")) +
         scale_x_continuous(breaks = seq(round(min_year / 10) * 10, round(max_year / 10) * 10, 10)) +
-        scale_shape_manual("Indicator", values = rep(0:length(indicator)), labels = indicator) +
-        scale_fill_manual("Indicator", values = rep("black", length(indicator)), labels = indicator) +
+        scale_shape_manual("Indicator", values = rep(0:length(indicator)), labels = sort(indicator)) +
+        scale_fill_manual("Indicator", values = rep("black", length(indicator)), labels = sort(indicator)) +
         theme_bw()
   }
   # If uncertainty is turned off or indicators do not have uncertainty estimates plot those variables
@@ -88,7 +88,7 @@ year <- country_name <- value <- mean_indicator <- vdem <- name <- type <- codel
         scale_x_continuous(breaks = seq(round(min_year / 10) * 10, round(max_year / 10) * 10, 10)) +
         scale_color_manual(values = colour_palette[seq_len(length(countries))], name = "Country",
                            labels = sort(countries)) +
-        scale_shape_manual(values = rep(0:length(indicator)), labels = indicator, name = "Indicator") +
+        scale_shape_manual(values = rep(0:length(indicator)), labels = sort(indicator), name = "Indicator") +
         theme_bw()
   }
   # Plot selected variables for selected countries including uncertainty estimates
@@ -122,7 +122,7 @@ year <- country_name <- value <- mean_indicator <- vdem <- name <- type <- codel
                            labels = sort(countries)) +
         scale_fill_manual(values = colour_palette[seq_len(length(countries))], name = "Country",
                           labels = sort(countries)) +
-        scale_shape_manual(values = rep(0:length(indicator)), labels = indicator, name = "Indicator") +
+        scale_shape_manual(values = rep(0:length(indicator)), labels = sort(indicator), name = "Indicator") +
         theme_bw()
   }
 }
