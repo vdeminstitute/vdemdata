@@ -1,11 +1,9 @@
 Package: vdemdata
 Type: Package
 Title: Provides most recent V-Dem data and some additional features
-Version: 0.1.0
+Version: 2.0
 Authors@R: c(person("Seraphine", "Maerz", email = "seraphine.maerz@v-dem.net", role = c("aut", "cre")),
              person("Amanda", "Edgell", email = "amanda.edgell@v-dem.net", role = c("aut")),
-             person("Joshua", "Krusell", email = "js.shirin@gmail.com", role = c("aut")),
-             person("Laura", "Maxwell", email = "laura.maxwell@v-dem.net", role = c("aut")),
              person("Sebastian", "Hellmeier", email = "sebastian.hellmeier@v-dem.net", role = c("aut")),
              person("Nina", "Ilchenko", email = "nina.ilchenko@v-dem.net", role = c("aut")))
 Maintainer: Seraphine Maerz <seraphine.maerz@v-dem.net>
@@ -15,19 +13,13 @@ Description: This package contains the most recent full V-Dem data set
              offers some additional functions to work with vdem data.
 Depends: R (>= 3.5.0)
 Imports:
-  Rcpp,
   dplyr,
   tidyr,
   stringr,
   ggplot2,
-  hablar,
-  plm,
-  tidyselect,
-  purrr,
-  tibble
+  tidyselect
 Suggests:
   testthat
-LinkingTo: Rcpp
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
