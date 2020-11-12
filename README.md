@@ -1,5 +1,5 @@
 
-An R package to load, explore and work with the most recent V-Dem (Varieties of Democracy) dataset (v10).
+An R package to load, explore and work with the most recent [V-Dem (Varieties of Democracy)](https://www.v-dem.net/en/data/data/v-dem-dataset/) and [V-Party](https://www.v-dem.net/en/data/data/v-party-dataset/) datasets.
 
 ## V-Dem: Global Standards, Local Knowledge ##
 
@@ -10,13 +10,14 @@ We are a team of over 50 social scientists on six continents. We work with more 
 
 ## The vdemdata R package ##
 
-This package contains the most recent V-Dem dataset (v10) and provides some additional functions.
+This package contains the most recent V-Dem and V-Party datasets and provides some additional functions.
 
 #### Basics: ####
-* `vdem`: Load the dataset (for non-R users, please access the V-Dem dataset [here](https://www.v-dem.net/en/data/data-version-10/))
-* `var_info`: Print to the console basic information on a specific variable as given in the codebook
-* `find_var`: Search variables via keywords
-* `fill_vars`: Fill election-specific variables 
+* `vdem`: Load the V-Dem dataset (for non-R users, please access the V-Dem dataset [here](https://www.v-dem.net/en/data/data/v-dem-dataset/))
+* `vparty`: Load the V-Party dataset (for non-R users, please access the V-Party dataset [here](https://www.v-dem.net/en/data/data/v-party-dataset/))
+* `var_info`: Print to the console basic information on a specific variable as given in the codebook of the V-Dem dataset
+* `find_var`: Search variables via keywords in the V-Dem dataset
+* `fill_vars`: Fill election-specific variables in the V-Dem dataset
 
 #### Graphics: ####
 * `plot_indicator`: Plot V-Dem indicators for exploratory data analysis.

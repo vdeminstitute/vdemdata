@@ -1,6 +1,6 @@
 Package: vdemdata
 Type: Package
-Title: Provides most recent V-Dem data and some additional features
+Title: Provides most recent V-Dem and V-Party data and some additional features
 Version: 2.0
 Authors@R: c(person("Seraphine", "Maerz", email = "seraphine.maerz@v-dem.net", role = c("aut", "cre")),
              person("Amanda", "Edgell", email = "amanda.edgell@v-dem.net", role = c("aut")),
@@ -9,7 +9,8 @@ Authors@R: c(person("Seraphine", "Maerz", email = "seraphine.maerz@v-dem.net", r
 Maintainer: Seraphine Maerz <seraphine.maerz@v-dem.net>
 Description: This package contains the most recent full V-Dem data set
              plus external variables (see here:
-             https://www.v-dem.net/en/data/data-version-10/) and
+             https://www.v-dem.net/en/data/data-version-10/), 
+             the V-Party data set (https://www.v-dem.net/en/data/data/v-party-dataset/), and
              offers some additional functions to work with vdem data.
 Depends: R (>= 3.5.0)
 Imports:
