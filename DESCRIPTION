@@ -1,6 +1,6 @@
 Package: vdemdata
 Type: Package
-Title: Provides most recent V-Dem and V-Party data and some additional features
+Title: Provides most recent V-Dem (v11.1) and V-Party (v1.0) data and some additional features
 Version: 2.0
 Authors@R: c(person("Seraphine", "Maerz", email = "seraphine.maerz@v-dem.net", role = c("aut", "cre")),
              person("Amanda", "Edgell", email = "amanda.edgell@v-dem.net", role = c("aut")),

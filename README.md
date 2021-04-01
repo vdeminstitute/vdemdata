@@ -10,7 +10,7 @@ We are a team of over 50 social scientists on six continents. We work with more 
 
 ## The vdemdata R package ##
 
-This package contains the most recent V-Dem and V-Party datasets and provides some additional functions.
+This package contains the most recent V-Dem (v11.1) and V-Party (v1.0) datasets and provides some additional functions.
 
 #### Basics: ####
 * `vdem`: Load the V-Dem dataset (for non-R users, please access the V-Dem dataset [here](https://www.v-dem.net/en/data/data/v-dem-dataset/))
