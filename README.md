@@ -39,7 +39,7 @@ devtools::install_github("vdeminstitute/vdemdata")
 # - since the package is still a development version - 
 # an updated version of xcode (Mac), rtools (Windows), r-base-dev (Linux)
 # installed. If you have troubles with the installation 
-# write to the package maintainer seraphine.maerz@v-dem.net
+# write to the package maintainer Seraphine Maerz (maerz@soz.uni-frankfurt.de).
 ```
 
 
