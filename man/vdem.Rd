@@ -8,7 +8,7 @@
 A data frame with 27013 observations and 4108 variables.
 }
 \source{
-https://www.v-dem.net/en/data/
+https://www.v-dem.net/
 }
 \usage{
 vdem
@@ -35,7 +35,7 @@ V-Dem Institute, the Department of Political Science at the
 University of Gothenburg, Sweden. The most recent data set (v9)
 covers 202 countries from 1789-2018 and includes 450+ indicators,
 81 indices and 5 high-level indices.
-For more info see https://www.v-dem.net/en/
+For more info see https://www.v-dem.net/
 }
 \references{
 Coppedge, Michael, John Gerring, Carl Henrik Knutsen, Staffan I. Lindberg, Jan Teorell, David Altman, Michael Bernhard, M. Steven Fish, Adam Glynn, Allen Hicken, Anna Luhrmann, Kyle L. Marquardt, Kelly McMann, Pamela Paxton, Daniel Pemstein, Brigitte Seim, Rachel Sigman, Svend-Erik Skaaning, Jeffrey Staton, Steven Wilson, Agnes Cornell, Nazifa Alizada, Lisa Gastaldi, Haakon Gjerløw, Garry Hindle, Nina Ilchenko, Laura Maxwell, Valeriya Mechkova, Juraj Medzihorsky, Johannes von Römer, Aksel Sundström, Eitan Tzelgov, Yi-ting Wang, Tore Wig, and Daniel Ziblatt. 2020. ”V-Dem [Country–Year/Country–Date] Dataset v10”. Varieties of Democracy (V-Dem) Project. https://doi.org/10.23696/vdemds20.
