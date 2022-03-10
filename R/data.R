@@ -22,14 +22,14 @@ NULL
 #' University of Gothenburg, Sweden. The most recent data set (v9)
 #' covers 202 countries from 1789-2018 and includes 450+ indicators,
 #' 81 indices and 5 high-level indices.
-#' For more info see https://www.v-dem.net/en/
+#' For more info see https://www.v-dem.net/
 #'
 #'
 #' @format A data frame with 27013 observations and 4108 variables.
 #'
 #' @references Coppedge, Michael, John Gerring, Carl Henrik Knutsen, Staffan I. Lindberg, Jan Teorell, David Altman, Michael Bernhard, M. Steven Fish, Adam Glynn, Allen Hicken, Anna Luhrmann, Kyle L. Marquardt, Kelly McMann, Pamela Paxton, Daniel Pemstein, Brigitte Seim, Rachel Sigman, Svend-Erik Skaaning, Jeffrey Staton, Steven Wilson, Agnes Cornell, Nazifa Alizada, Lisa Gastaldi, Haakon Gjerløw, Garry Hindle, Nina Ilchenko, Laura Maxwell, Valeriya Mechkova, Juraj Medzihorsky, Johannes von Römer, Aksel Sundström, Eitan Tzelgov, Yi-ting Wang, Tore Wig, and Daniel Ziblatt. 2020. ”V-Dem [Country–Year/Country–Date] Dataset v10”. Varieties of Democracy (V-Dem) Project. https://doi.org/10.23696/vdemds20.
 #'
-#' @source https://www.v-dem.net/en/data/
+#' @source https://www.v-dem.net/
 #'
 "vdem"
 
@@ -37,14 +37,14 @@ NULL
 #'
 #' Loads as data frame selected information from the V-Dem dataset codebook
 #'
-#' For the full pdf version of the codebook and more info see https://www.v-dem.net/en/
+#' For the full pdf version of the codebook and more info see https://www.v-dem.net/
 #'
 #'
 #' @format A data frame with 785 observations and 12 variables
 #'
 #' @references Coppedge, Michael, John Gerring, Carl Henrik Knutsen, Staffan I. Lindberg, Jan Teorell, David Altman, Michael Bernhard, M. Steven Fish, Adam Glynn, Allen Hicken, Anna Luhrmann, Kyle L. Marquardt, Kelly McMann, Pamela Paxton, Daniel Pemstein, Brigitte Seim, Rachel Sigman, Svend-Erik Skaaning, Jeffrey Staton, Steven Wilson, Agnes Cornell, Nazifa Alizada, Lisa Gastaldi, Haakon Gjerløw, Garry Hindle, Nina Ilchenko, Laura Maxwell, Valeriya Mechkova, Juraj Medzihorsky, Johannes von Römer, Aksel Sundström, Eitan Tzelgov, Yi-ting Wang, Tore Wig, and Daniel Ziblatt. 2020. ”V-Dem [Country–Year/Country–Date] Dataset v10, Codebook”. Varieties of Democracy (V-Dem) Project. https://doi.org/10.23696/vdemds20.
 #'
-#' @source https://www.v-dem.net/en/data/
+#' @source https://www.v-dem.net/
 #'
 "codebook"
 
@@ -70,12 +70,12 @@ NULL
 #' University of Gothenburg, Sweden. The most recent data set (v9)
 #' covers 202 countries from 1789-2018 and includes 450+ indicators,
 #' 81 indices and 5 high-level indices.
-#' For more info see https://www.v-dem.net/en/
+#' For more info see https://www.v-dem.net/
 #'
 #' @format A data frame with 11 914 observations and 384 variables.
 #'
 #' @references Lührmann, Anna, Nils Düpont, Masaaki Higashijima, Yaman Berker Kavasoglu, Kyle L. Marquardt, Michael Bernhard, Holger Döring, Allen Hicken, Melis Laebens, Staffan I. Lindberg, Juraj Medzihorsky, Anja Neundorf, Ora John Reuter, Saskia Ruth-Lovell, Keith R. Weghorst, Nina Wiesehomeier, JosephWright, Nazifa Alizada, Paul Bederke, Lisa Gastaldi, Sandra Grahn, Garry Hindle, Nina Ilchenko, Johannes von Römer, Steven Wilson, Daniel Pemstein, Brigitte Seim. 2020. Varieties of Party Identity and Organization (V-Party) Dataset V1. Varieties of Democracy (V-Dem) Project. https://doi.org/10.23696/vpartydsv1
 #'
-#' @source https://www.v-dem.net/en/data/
+#' @source https://www.v-dem.net/
 #'
 "vparty"

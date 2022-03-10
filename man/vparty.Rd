@@ -8,7 +8,7 @@
 A data frame with 11 914 observations and 384 variables.
 }
 \source{
-https://www.v-dem.net/en/data/
+https://www.v-dem.net/
 }
 \usage{
 vparty
@@ -35,7 +35,7 @@ V-Dem Institute, the Department of Political Science at the
 University of Gothenburg, Sweden. The most recent data set (v9)
 covers 202 countries from 1789-2018 and includes 450+ indicators,
 81 indices and 5 high-level indices.
-For more info see https://www.v-dem.net/en/
+For more info see https://www.v-dem.net/
 }
 \references{
 Lührmann, Anna, Nils Düpont, Masaaki Higashijima, Yaman Berker Kavasoglu, Kyle L. Marquardt, Michael Bernhard, Holger Döring, Allen Hicken, Melis Laebens, Staffan I. Lindberg, Juraj Medzihorsky, Anja Neundorf, Ora John Reuter, Saskia Ruth-Lovell, Keith R. Weghorst, Nina Wiesehomeier, JosephWright, Nazifa Alizada, Paul Bederke, Lisa Gastaldi, Sandra Grahn, Garry Hindle, Nina Ilchenko, Johannes von Römer, Steven Wilson, Daniel Pemstein, Brigitte Seim. 2020. Varieties of Party Identity and Organization (V-Party) Dataset V1. Varieties of Democracy (V-Dem) Project. https://doi.org/10.23696/vpartydsv1
