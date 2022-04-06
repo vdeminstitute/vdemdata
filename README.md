@@ -1,5 +1,5 @@
 
-An R package to load, explore and work with the most recent [V-Dem (Varieties of Democracy)](https://www.v-dem.net/vdemds.html) and [V-Party](https://www.v-dem.net/vpartyds.html) datasets.
+An R package to load, explore and work with the most recent [V-Dem (Varieties of Democracy)](https://www.v-dem.net/vdemds.html) and [V-Party](https://www.v-dem.net/vpartyds.html) datasets. 
 
 ## V-Dem: Global Standards, Local Knowledge ##
 
@@ -10,7 +10,7 @@ We are a team of over 50 social scientists on six continents. We work with more 
 
 ## The vdemdata R package ##
 
-This package contains the most recent V-Dem and V-Party datasets and provides some additional functions.
+This package contains the most recent V-Dem (Country-Year: V-Dem Full+Others) and V-Party datasets and provides some additional functions.
 
 #### Basics: ####
 * `vdem`: Load the V-Dem dataset (for non-R users, please access the V-Dem dataset [here](https://www.v-dem.net/vdemds.html))
@@ -42,4 +42,20 @@ devtools::install_github("vdeminstitute/vdemdata")
 # write to the package maintainer Seraphine Maerz (maerz@soz.uni-frankfurt.de).
 ```
 
+## Suggested Citations ##
+
+Please remember to cite this package and the underlying datasets when using them for published work. 
+
+#### Package ####
+
+Maerz, Seraphine F., Amanda B. Edgell, Sebastian Hellemeier, and Nina Illchenko. 2022. vdemdata: An R package to load, explore and work with the most recent V-Dem (Varieties of Democracy) dataset. https://github.com/vdeminstitute/vdemdata
+
+
+#### V-Dem Country-Year+Others Dataset ####
+
+Coppedge, Michael, John Gerring, Carl Henrik Knutsen, Staffan I. Lindberg, Jan Teorell, Naz- ifa Alizada, David Altman, Michael Bernhard, Agnes Cornell, M. Steven Fish, Lisa Gastaldi, Haakon Gjerløw, Adam Glynn, Sandra Grahn, Allen Hicken, Garry Hindle, Nina Ilchenko, Katrin Kinzelbach, Joshua Krusell, Kyle L. Marquardt, Kelly McMann, Valeriya Mechkova, Juraj Medzihorsky, Pamela Paxton, Daniel Pemstein, Josefine Pernes, Oskar Ryd ́en, Johannes von R ̈omer, Brigitte Seim, Rachel Sigman, Svend-Erik Skaaning, Jeffrey Staton, Aksel Sund- str ̈om, Eitan Tzelgov, Yi-ting Wang, Tore Wig, Steven Wilson and Daniel Ziblatt. 2022. ”V- Dem [Country–Year/Country–Date] Dataset v12” Varieties of Democracy (V-Dem) Project. https://doi.org/10.23696/vdemds22.
+
+#### V-Party Dataset ####
+
+Lindberg, Staffan I., Nils Düpont, Masaaki Higashijima, Yaman Berker Kavasoglu, Kyle L. Marquardt, Michael Bernhard, Holger Döring, Allen Hicken, Melis Laebens, Juraj Medzihorsky, Anja Neundorf, Ora John Reuter, Saskia Ruth–Lovell, Keith R. Weghorst, Nina Wiesehomeier, Joseph Wright, Nazifa Alizada, Paul Bederke, Lisa Gastaldi, Sandra Grahn, Garry Hindle, Nina Ilchenko, Johannes von Römer, Steven Wilson, Daniel Pemstein, Brigitte Seim. 2022. Varieties of Party Identity and Organization (V–Party) Dataset V2. Varieties of Democracy (V–Dem) Project. https://doi.org/10.23696/vpartydsv2
 
