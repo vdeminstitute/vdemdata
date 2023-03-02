@@ -37,7 +37,7 @@ devtools::install_github("vdeminstitute/vdemdata")
 
 # NOTE: make sure you have an updated R version (> 3.5) and
 # - since the package is still a development version - 
-# an updated version of xcode (Mac), rtools (Windows), r-base-dev (Linux)
+# an updated version of rlang, xcode (Mac), rtools (Windows), r-base-dev (Linux)
 # installed. If you have troubles with the installation 
 # write to the package maintainer Seraphine Maerz (maerz@soz.uni-frankfurt.de).
 ```
@@ -53,9 +53,15 @@ Maerz, Seraphine F., Amanda B. Edgell, Sebastian Hellemeier, and Nina Illchenko.
 
 #### V-Dem Country-Year+Others Dataset ####
 
-Coppedge, Michael, John Gerring, Carl Henrik Knutsen, Staffan I. Lindberg, Jan Teorell, Naz- ifa Alizada, David Altman, Michael Bernhard, Agnes Cornell, M. Steven Fish, Lisa Gastaldi, Haakon Gjerløw, Adam Glynn, Sandra Grahn, Allen Hicken, Garry Hindle, Nina Ilchenko, Katrin Kinzelbach, Joshua Krusell, Kyle L. Marquardt, Kelly McMann, Valeriya Mechkova, Juraj Medzihorsky, Pamela Paxton, Daniel Pemstein, Josefine Pernes, Oskar Ryd ́en, Johannes von R ̈omer, Brigitte Seim, Rachel Sigman, Svend-Erik Skaaning, Jeffrey Staton, Aksel Sund- str ̈om, Eitan Tzelgov, Yi-ting Wang, Tore Wig, Steven Wilson and Daniel Ziblatt. 2022. ”V- Dem [Country–Year/Country–Date] Dataset v12” Varieties of Democracy (V-Dem) Project. https://doi.org/10.23696/vdemds22.
+Coppedge, Michael, John Gerring, Carl Henrik Knutsen, Staffan I. Lindberg, Jan Teorell, David
+Altman, Michael Bernhard, Agnes Cornell, M. Steven Fish, Lisa Gastaldi, Haakon Gjerløw, Adam
+Glynn, Sandra Grahn, Allen Hicken, Katrin Kinzelbach, Kyle L. Marquardt, Kelly McMann,
+Valeriya Mechkova, Anja Neundorf, Pamela Paxton, Daniel Pemstein, Oskar Rydén, Johannes von
+Römer, Brigitte Seim, Rachel Sigman, Svend-Erik Skaaning, Jeffrey Staton, Aksel Sundström, Eitan
+Tzelgov, Luca Uberti, Yi-ting Wang, Tore Wig, and Daniel Ziblatt. 2023. "V-Dem Codebook v13"
+Varieties of Democracy (V-Dem) Project. https://www.v-dem.net/data/the-v-dem-dataset/.
 
 #### V-Party Dataset ####
 
-Lindberg, Staffan I., Nils Düpont, Masaaki Higashijima, Yaman Berker Kavasoglu, Kyle L. Marquardt, Michael Bernhard, Holger Döring, Allen Hicken, Melis Laebens, Juraj Medzihorsky, Anja Neundorf, Ora John Reuter, Saskia Ruth–Lovell, Keith R. Weghorst, Nina Wiesehomeier, Joseph Wright, Nazifa Alizada, Paul Bederke, Lisa Gastaldi, Sandra Grahn, Garry Hindle, Nina Ilchenko, Johannes von Römer, Steven Wilson, Daniel Pemstein, Brigitte Seim. 2022. Varieties of Party Identity and Organization (V–Party) Dataset V2. Varieties of Democracy (V–Dem) Project. https://doi.org/10.23696/vpartydsv2
+Lindberg, Staffan I., Nils Düpont, Masaaki Higashijima, Yaman Berker Kavasoglu, Kyle L. Marquardt, Michael Bernhard, Holger Döring, Allen Hicken, Melis Laebens, Juraj Medzihorsky, Anja Neundorf, Ora John Reuter, Saskia Ruth–Lovell, Keith R. Weghorst, Nina Wiesehomeier, Joseph Wright, Nazifa Alizada, Paul Bederke, Lisa Gastaldi, Sandra Grahn, Garry Hindle, Nina Ilchenko, Johannes von Römer, Steven Wilson, Daniel Pemstein, Brigitte Seim. 2022. Varieties of Party Identity and Organization (V–Party) Dataset V2. Varieties of Democracy (V–Dem) Project. https://www.v-dem.net/data/v-party-dataset/
 

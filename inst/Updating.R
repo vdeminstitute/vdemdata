@@ -8,11 +8,11 @@
 
 # load the new datasets and save them as RData in the package folder "data"
 # vdem
-vdem <- readRDS("V-Dem-CY-Full+Others-v12.rds")
+vdem <- readRDS("V-Dem-CY-Full+Others-v13.rds")
 save("vdem", file = "data/vdem.RData")
-# vparty
-vparty <- readRDS("V-Dem-CPD-Party-V2.rds")
-save("vparty", file = "data/vparty.RData")
+# vparty (if there are updates)
+#vparty <- readRDS("V-Dem-CPD-Party-V2.rds")
+#save("vparty", file = "data/vparty.RData")
 
 # load vdem codebook
 # NOTE: clean out LaTeX code is NOT done yet (future versions might do so)
@@ -40,7 +40,7 @@ devtools::check()
 
 # Choose a new tag for the release (e.g., V11.1, V12)
 
-# Select a title for the release and adjust the description 
+# Select a title for the release and adjust the description
 # (mostly copy-paste from last release to keep it consistent)
 # You can use the "save draft" and "preview" buttons to make sure the release looks good
 
