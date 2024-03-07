@@ -1,12 +1,13 @@
 Package: vdemdata
 Type: Package
 Title: Provides most recent V-Dem and V-Party data and some additional features
-Version: 13.0
+Version: 14.0
 Authors@R: c(person("Seraphine", "Maerz", email = "maerz@soz.uni-frankfurt.de", role = c("aut", "cre")),
              person("Amanda", "Edgell", email = "amanda.edgell@v-dem.net", role = c("aut")),
              person("Sebastian", "Hellmeier", email = "sebastian.hellmeier@v-dem.net", role = c("aut")),
-             person("Nina", "Ilchenko", email = "nina.ilchenko@v-dem.net", role = c("aut")))
-Maintainer: Seraphine Maerz <maerz@soz.uni-frankfurt.de>
+             person("Nina", "Ilchenko", email = "nina.ilchenko@v-dem.net", role = c("aut")),
+             person("Linnea", "Fox", email = "linnea.fox@v-dem.net", role = c("aut")))
+Maintainer: Linnea Fox <linnea.fox@v-dem.net>
 Description: This package contains the most recent full V-Dem data set
              plus external variables (see here:
              https://www.v-dem.net/data/the-v-dem-dataset/), 
@@ -22,4 +23,4 @@ Imports:
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
