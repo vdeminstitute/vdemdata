@@ -6,10 +6,11 @@ citEntry(
   author   = personList(as.person("Seraphine Maerz"),
          as.person("Amanda Edgell"),
          as.person("Sebastian Hellmeier"),
-         as.person("Nina Ilchenko")),
+         as.person("Nina Ilchenko"),
+         as.person("Linnea Fox")),
   institution = "Varieties of Democracy (V-Dem) Project",
-  year     = 2021,
+  year     = 2024,
   url      = "https://www.v-dem.net/en/",
-  textVersion = "Seraphine Maerz, Amanda Edgell, Sebastian Hellmeier, Nina Ilchenko. 'Vdemdata - an R package to load, explore and work with the most recent V-Dem (Varieties of Democracy) and V-Party datasets'. Varieties of Democracy (V-Dem) Project. 2020. https://www.v-dem.net/en/ and https://github.com/vdeminstitute/vdemdata"
+  textVersion = "Seraphine Maerz, Amanda Edgell, Sebastian Hellmeier, Nina Ilchenko, Linnea Fox. 'Vdemdata - an R package to load, explore and work with the most recent V-Dem (Varieties of Democracy) and V-Party datasets'. Varieties of Democracy (V-Dem) Project. 2024. https://www.v-dem.net/en/ and https://github.com/vdeminstitute/vdemdata"
 )
 
