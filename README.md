@@ -3,14 +3,14 @@ An R package to load, explore and work with the most recent [V-Dem (Varieties of
 
 ## V-Dem: Global Standards, Local Knowledge ##
 
-Varieties of Democracy (V-Dem) is a new approach to conceptualizing and measuring democracy. We provide a multidimensional and disaggregated dataset that reflects the complexity of the concept of democracy as a system of rule that goes beyond the simple presence of elections. The V-Dem project distinguishes between five high-level principles of democracy: electoral, liberal, participatory, deliberative, and egalitarian, and collects data to measure these principles. 
+Varieties of Democracy (V-Dem) conceptualizes and measures democracy. We provide a multidimensional and disaggregated dataset that reflects the complexity of the concept of democracy as a system of rule that goes beyond the simple presence of elections. The V-Dem project distinguishes between five high-level principles of democracy: electoral, liberal, participatory, deliberative, and egalitarian, and collects data to measure these principles. 
 
-We are a team of over 50 social scientists on six continents. We work with more than 3,000 country experts and a truly global International Advisory Board. [Read more about the work we do here](https://www.v-dem.net/).
+We are a team of over 50 social scientists on six continents. We work with more than 5,000 country experts. Read more about the work we do [here](https://www.v-dem.net/).
 
 
 ## The vdemdata R package ##
 
-This package contains the most recent V-Dem (Country-Year: V-Dem Full+Others) and V-Party datasets and provides some additional functions.
+This package contains the most recent V-Dem (Country-Year: V-Dem Full+Others) and V-Party datasets and provides some additional functions. Other versions of the V-Dem dataset can be downloaded from our [website](https://v-dem.net/data/the-v-dem-dataset/).
 
 #### Basics: ####
 * `vdem`: Load the V-Dem dataset (for non-R users, please access the V-Dem dataset [here](https://www.v-dem.net/vdemds.html))
@@ -40,6 +40,9 @@ devtools::install_github("vdeminstitute/vdemdata")
 # an updated version of rlang, xcode (Mac), rtools (Windows), r-base-dev (Linux)
 # installed. If you have troubles with the installation 
 # write to contact@v-dem.net at the V-Dem Institute.
+
+# NOTE: a tar.gz is also provide if you encounter any 
+# issues in the installation processes.
 ```
 
 ## Suggested Citations ##
@@ -48,12 +51,12 @@ Please remember to cite this package and the underlying datasets when using them
 
 #### Package ####
 
-Maerz, Seraphine F., Amanda B. Edgell, Sebastian Hellemeier, Nina Illchenko, and Linnea Fox. 2025. vdemdata: An R package to load, explore and work with the most recent V-Dem (Varieties of Democracy) dataset. https://github.com/vdeminstitute/vdemdata
+Maerz, Seraphine F., Amanda B. Edgell, Sebastian Hellemeier, Nina Illchenko, and Linnea Fox. 2026. vdemdata: An R package to load, explore and work with the most recent V-Dem (Varieties of Democracy) dataset. https://github.com/vdeminstitute/vdemdata
 
 
 #### V-Dem Country-Year+Others Dataset ####
 
-Coppedge, Michael, John Gerring, Carl Henrik Knutsen, Staffan I. Lindberg, Jan Teorell, David Altman, Fabio Angiolillo, Michael Bernhard, Agnes Cornell, M. Steven Fish, Linnea Fox, Lisa Gastaldi, Haakon Gjerløw, Adam Glynn, Ana Good God, Sandra Grahn, Allen Hicken, Katrin Kinzelbach, Joshua Krusell, Kyle L. Marquardt, Kelly McMann, Valeriya Mechkova, Juraj Medzihorsky, Natalia Natsika, Anja Neundorf, Pamela Paxton, Daniel Pemstein, Johannes von Römer, Brigitte Seim, Rachel Sigman, Svend-Erik Skaaning, Jeffrey Staton, Aksel Sundström, Marcus Tannenberg, Eitan Tzelgov, Yi-ting Wang, Felix Wiebrecht, Tore Wig, Steven Wilson and Daniel Ziblatt. 2025. "V-Dem Country-Year Dataset v15" Varieties of Democracy (V-Dem) Project. https://doi.org/10.23696/vdemds25.
+Coppedge, Michael, John Gerring, Carl Henrik Knutsen, Staffan I. Lindberg, Jan Teorell, David Altman, Fabio Angiolillo, Michael Bernhard, Agnes Cornell, M. Steven Fish, Linnea Fox, Lisa Gastaldi, Haakon Gjerløw, Adam Glynn, Ana Good God, Allen Hicken, Katrin Kinzelbach, Joshua Krusell, Kyle L. Marquardt, Kelly McMann, Valeriya Mechkova, Juraj Medzihorsky, Anja Neundorf, Pamela Paxton, Daniel Pemstein, Josefine Pernes, Johannes von Römer, Brigitte Seim, Rachel Sigman, Svend-Erik Skaaning, Jeffrey Staton, Aksel Sundström, Marcus Tannenberg, Eitan Tzelgov, Yi-ting Wang, Tore Wig, Steven Wilson and Daniel Ziblatt. 2026. "V-Dem Country-Year Dataset v16" Varieties of Democracy (V-Dem) Project. https://doi.org/10.23696/vdemds26.
 
 
 #### V-Party Dataset ####
