@@ -30,10 +30,12 @@ This package contains the most recent V-Dem (Country-Year: V-Dem Full+Others) an
 # (the package is an ongoing project, 
 # keep checking for updates)
 
-# First, you need to have the devtools package installed
-install.packages("devtools")
-# now, install the vdemdata package directly from GitHub
-devtools::install_github("vdeminstitute/vdemdata")
+# The easiest way is using the `pak` package:
+# Install pak if you haven't already
+install.packages("pak")
+
+# Install vdemdata
+pak::pak("vdeminstitute/vdemdata")
 
 # NOTE: make sure you have an updated R version and
 # - since the package is a development version - 
